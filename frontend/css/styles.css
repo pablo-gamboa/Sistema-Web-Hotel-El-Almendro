@@ -1,0 +1,248 @@
+/* ==========================================================
+   ESTILOS CSS MODULARES - HOTEL EL ALMENDRO
+   ========================================================== */
+
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Barras de desplazamiento personalizadas */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Efectos visuales de tarjetas */
+.card-hover {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.12);
+}
+
+.hero-card-hover {
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hero-card-hover:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.18);
+}
+
+/* Modo Oscuro Scrollbar */
+.dark .custom-scrollbar::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+
+.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #334155;
+}
+
+.dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
+/* Solo el historial operativo de la ficha de Inventario. */
+.inv-history-scroll {
+  max-height: 24rem;
+  max-height: min(24rem, 55vh);
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  scrollbar-width: thin;
+  scrollbar-color: #94a3b8 #f1f5f9;
+  scrollbar-gutter: stable;
+  padding: 2px 8px 2px 2px;
+  border-radius: 8px;
+}
+
+.dark .inv-history-scroll {
+  scrollbar-color: #64748b #0f172a;
+}
+
+.inv-history-scroll::-webkit-scrollbar-thumb {
+  background: #94a3b8;
+}
+
+.dark .inv-history-scroll::-webkit-scrollbar-thumb {
+  background: #64748b;
+}
+
+.inv-history-scroll:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Animación de vibración / error para PIN */
+@keyframes pin-shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-8px); }
+  40%, 80% { transform: translateX(8px); }
+}
+
+.animate-shake {
+  animation: pin-shake 0.4s ease-in-out;
+}
+
+/* Suavizado de transiciones al alternar tema */
+.theme-transition,
+.theme-transition * {
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+/* ==========================================================
+   REGLAS GLOBALES DE MODO OSCURO (DARK MODE)
+   ========================================================== */
+.dark body {
+  background-color: #020617;
+  color: #f1f5f9;
+}
+
+.dark #view-container {
+  background-color: #020617;
+}
+
+/* Tarjetas y superficies principales */
+.dark .bg-white {
+  background-color: #0f172a !important;
+}
+
+/* Contenedores secundarios y cajas de contenido (elimina fondos lechosos o grises) */
+.dark [class*="bg-slate-50"],
+.dark [class*="bg-slate-100"]:not(#sidebar):not(.nav-item),
+.dark [class*="bg-slate-200"]:not(.bg-blue-600):not(.bg-emerald-600),
+.dark [class*="bg-gray-50"],
+.dark [class*="bg-gray-100"],
+.dark [class*="bg-zinc-50"],
+.dark [class*="bg-zinc-100"] {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+}
+
+/* Contenedores con tintes claros en modo oscuro */
+.dark [class*="bg-blue-50"]:not([class*="text-white"]):not(.bg-blue-600) {
+  background-color: rgba(30, 58, 138, 0.28) !important;
+  border-color: rgba(59, 130, 246, 0.3) !important;
+}
+.dark [class*="bg-emerald-50"]:not([class*="text-white"]) {
+  background-color: rgba(6, 78, 59, 0.28) !important;
+  border-color: rgba(16, 185, 129, 0.3) !important;
+}
+.dark [class*="bg-purple-50"]:not([class*="text-white"]) {
+  background-color: rgba(88, 28, 135, 0.28) !important;
+  border-color: rgba(168, 85, 247, 0.3) !important;
+}
+.dark [class*="bg-amber-50"]:not([class*="text-white"]) {
+  background-color: rgba(120, 53, 15, 0.28) !important;
+  border-color: rgba(245, 158, 11, 0.3) !important;
+}
+.dark [class*="bg-rose-50"]:not([class*="text-white"]) {
+  background-color: rgba(136, 19, 55, 0.28) !important;
+  border-color: rgba(244, 63, 94, 0.3) !important;
+}
+
+/* Hover en contenedores de grupos */
+.dark .group:hover [class*="bg-slate-50"],
+.dark .group:hover [class*="bg-slate-100"],
+.dark [class*="group-hover:bg-blue-50"] {
+  background-color: #24324a !important;
+}
+
+/* Chips, badges y píldoras numéricas en modo oscuro */
+.dark span.bg-slate-100,
+.dark span[class*="bg-slate-100"]:not(.text-white) {
+  background-color: #334155 !important;
+  color: #f1f5f9 !important;
+  border-color: #475569 !important;
+}
+
+/* Bordes y separadores en modo oscuro */
+.dark .border-slate-100,
+.dark .border-slate-200,
+.dark .border-slate-300 {
+  border-color: #334155 !important;
+}
+
+.dark .divide-slate-100 > :not([hidden]) ~ :not([hidden]),
+.dark .divide-slate-200 > :not([hidden]) ~ :not([hidden]) {
+  border-color: #334155 !important;
+}
+
+/* Tipografía de alto contraste en modo oscuro */
+.dark .text-slate-900 {
+  color: #f8fafc !important;
+}
+
+.dark .text-slate-800 {
+  color: #f1f5f9 !important;
+}
+
+.dark .text-slate-700 {
+  color: #cbd5e1 !important;
+}
+
+.dark .text-slate-600 {
+  color: #94a3b8 !important;
+}
+
+.dark .text-slate-500 {
+  color: #94a3b8 !important;
+}
+
+/* Puntos / viñetas en listas */
+.dark .text-blue-600 {
+  color: #60a5fa !important;
+}
+
+/* Formularios e inputs */
+.dark input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]),
+.dark select,
+.dark textarea {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+  color: #f8fafc !important;
+}
+
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: #64748b !important;
+}
+
+.dark select option {
+  background-color: #0f172a;
+  color: #f8fafc;
+}
+
+/* Modales en modo oscuro */
+.dark #maintenance-modal-content,
+.dark #asset-modal-content,
+.dark #renovation-modal-content,
+.dark #improvement-modal-content,
+.dark #area-modal-content {
+  background-color: #0f172a !important;
+  border-color: #1e293b !important;
+  color: #f1f5f9 !important;
+}
+
+/* Tablas en modo oscuro */
+.dark tbody tr:hover {
+  background-color: rgba(30, 41, 59, 0.4) !important;
+}
+
+
+

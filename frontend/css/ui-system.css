@@ -1,0 +1,1505 @@
+/* El Almendro — base visual reutilizable, activada únicamente con .alm-ui.
+   Esta primera tanda no redefine clases Tailwind ni estilos de otros módulos. */
+.alm-ui {
+  --alm-bg: #f4f7fb;
+  --alm-surface: #ffffff;
+  --alm-inset: #f8fafc;
+  --alm-border: #dce4ee;
+  --alm-text: #142238;
+  --alm-muted: #53647b;
+  --alm-accent: #2563eb;
+  --alm-link: #1d4ed8;
+  --alm-shadow: 0 8px 28px -20px rgba(15, 23, 42, .28);
+  color: var(--alm-text);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  line-height: 1.55;
+}
+.dark .alm-ui {
+  --alm-bg: #080f1e;
+  --alm-surface: #111b2e;
+  --alm-inset: #172338;
+  --alm-border: #29384e;
+  --alm-text: #edf2fa;
+  --alm-muted: #a7b5c9;
+  --alm-link: #93bbff;
+  --alm-shadow: 0 8px 28px -20px rgba(0, 0, 0, .7);
+}
+.alm-ui .alm-panel {
+  background: var(--alm-surface) !important;
+  border: 1px solid var(--alm-border);
+  border-color: var(--alm-border) !important;
+  border-radius: 20px;
+  box-shadow: var(--alm-shadow);
+}
+.alm-ui .alm-eyebrow {
+  color: var(--alm-muted);
+  font-size: .6875rem;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+.alm-ui .alm-title {
+  color: var(--alm-text);
+  font-size: clamp(1.25rem, 1.1rem + .6vw, 1.625rem);
+  font-weight: 800;
+  line-height: 1.3;
+  letter-spacing: -.035em;
+}
+.alm-ui .alm-muted { color: var(--alm-muted); }
+.alm-ui .alm-btn-primary {
+  min-height: 44px;
+  background: var(--alm-accent);
+  color: #fff;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  box-shadow: 0 3px 8px -5px rgba(37, 99, 235, .8);
+  font-size: .875rem;
+  font-weight: 700;
+  transition: background-color .15s ease, box-shadow .15s ease;
+}
+.alm-ui .alm-btn-primary:hover:not(:disabled) { background: #1d4ed8; }
+#admin-acceso-dialog :is(input,button):focus-visible { outline: 3px solid var(--alm-link); outline-offset: 3px; }
+#admin-acceso-dialog [data-acceso-cancelar]:hover { background: var(--alm-border) !important; }
+#admin-acceso-dialog :disabled { opacity: .55; cursor: wait; }
+
+/* Aparición equivalente al aviso administrativo; tarjeta propia del rechazo. */
+#revision-solicitud-aviso.alm-revision-rechazo { position: fixed; inset: 0; z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 16px; background: rgba(2,6,23,.75); }
+.alm-revision-rechazo .alm-revision-tarjeta { width: 420px; max-width: 100%; padding: 0; display: grid; grid-template-rows: auto minmax(0,1fr) auto; max-height: min(560px, 90dvh); border-color: #fca5a5 !important; box-shadow: 0 12px 36px rgba(15,23,42,.18); overflow: hidden; }
+.alm-revision-rechazo .alm-revision-cabecera { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-bottom: 1px solid var(--alm-border); }
+.alm-revision-rechazo .alm-revision-cabecera h3 { flex: 1; min-width: 0; color: var(--alm-text); font-size: 15px; font-weight: 700; }
+.alm-revision-rechazo .alm-revision-icono { flex-shrink: 0; display: inline-flex; color: #b91c1c; background: #fee2e2; border-radius: 12px; padding: 8px; }
+.alm-revision-rechazo [data-revision-cerrar] { flex-shrink: 0; width: 44px; height: 44px; border-radius: 10px; color: var(--alm-muted); }
+.alm-revision-rechazo [data-revision-cerrar]:hover { color: var(--alm-text); background: var(--alm-inset); }
+.alm-revision-rechazo .alm-revision-cuerpo { min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 14px 16px; display: grid; gap: 12px; font-size: 14px; line-height: 1.5; overflow-wrap: anywhere; }
+.alm-revision-rechazo .alm-revision-motivo { display: grid; gap: 6px; padding: 12px; border: 1px solid var(--alm-border); border-radius: 12px; background: var(--alm-inset); }
+.alm-revision-rechazo .alm-revision-motivo p { white-space: pre-wrap; }
+.alm-revision-rechazo .alm-revision-pie { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 12px; padding: 10px 16px; border-top: 1px solid var(--alm-border); }
+.alm-revision-rechazo [data-revision-detalle] { min-height: 44px; padding: 10px 12px; border: 1px solid var(--alm-border); border-radius: 10px; background: var(--alm-inset); color: var(--alm-link); font-size: 13px; font-weight: 600; }
+.alm-revision-rechazo [data-revision-detalle]:hover { background: var(--alm-border); }
+.alm-revision-rechazo :is(button,[tabindex]):focus-visible { outline: 3px solid var(--alm-link); outline-offset: -3px; }
+.dark .alm-revision-rechazo .alm-revision-tarjeta { border-color: #7f1d1d !important; }
+.dark .alm-revision-rechazo .alm-revision-icono { background: #450a0a; color: #fecaca; }
+@media (prefers-reduced-motion: reduce) { .alm-revision-rechazo, .alm-revision-rechazo * { animation: none !important; transition: none !important; } }
+
+/* Consulta de Solicitudes: controles y tarjetas; no afecta fichas ni Reactiva. */
+.alm-ui .alm-solicitudes-filtros { display: grid; gap: 14px; }
+.alm-ui .alm-solicitudes-estados { display: flex; flex-wrap: wrap; gap: 6px; }
+.alm-ui .alm-solicitudes-estados button { padding: 8px 12px; border-radius: 10px; border: 1px solid var(--alm-border); background: var(--alm-inset); color: var(--alm-text); font-size: 13px; font-weight: 600; }
+.alm-ui .alm-solicitudes-estados button[aria-pressed="true"] { background: #2563eb; border-color: #2563eb; color: white; }
+.alm-ui .alm-solicitudes-estados button:hover { filter: brightness(.95); }
+.alm-ui .alm-solicitudes-herramientas { display: flex; flex-wrap: wrap; align-items: end; gap: 12px; }
+.alm-ui .alm-solicitudes-herramientas label { display: grid; gap: 6px; min-width: 0; font-size: 13px; }
+.alm-ui .alm-solicitudes-buscador { flex: 1 1 310px; }
+.alm-ui .alm-solicitudes-herramientas input, .alm-ui .alm-solicitudes-herramientas select { width: 100%; min-width: 0; min-height: 44px; padding: 10px 12px; border: 1px solid var(--alm-border); border-radius: 12px; color: var(--alm-text); background: var(--alm-inset); font: inherit; }
+.alm-ui .alm-solicitudes-herramientas input { font-size: 12px; }
+.alm-ui .alm-solicitudes-filtros :is(button,input,select):focus-visible { outline: 3px solid var(--alm-link); outline-offset: 2px; }
+.alm-ui .alm-solicitudes-lista { display: grid; grid-template-columns: minmax(0,1fr); gap: 16px; }
+.alm-ui .alm-solicitud-tarjeta { display: flex; flex-direction: column; min-width: 0; gap: 12px; padding: 16px; border: 1px solid var(--alm-border); border-radius: 16px; overflow-wrap: anywhere; }
+.alm-ui .alm-solicitud-cabecera { display: flex; align-items: start; flex-wrap: wrap; gap: 8px; }
+.alm-ui .alm-solicitud-cabecera h4 { flex: 1 1 160px; font-weight: 700; }
+.alm-ui .alm-solicitud-badge { padding: 4px 9px; border-radius: 99px; font-size: 12px; font-weight: 600; background: var(--alm-inset); }
+.alm-ui .alm-solicitud-badge[data-estado="pendiente"] { background: #fef3c7; color: #92400e; }
+.alm-ui .alm-solicitud-badge[data-estado="aprobada"] { background: #dcfce7; color: #166534; }
+.alm-ui .alm-solicitud-badge[data-estado="rechazada"] { background: #fee2e2; color: #991b1b; }
+.dark .alm-ui .alm-solicitud-badge[data-estado="pendiente"] { background: #422006; color: #fde68a; }
+.dark .alm-ui .alm-solicitud-badge[data-estado="aprobada"] { background: #052e16; color: #bbf7d0; }
+.dark .alm-ui .alm-solicitud-badge[data-estado="rechazada"] { background: #450a0a; color: #fecaca; }
+.alm-ui .alm-solicitud-datos { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px 16px; font-size: 13px; }
+.alm-ui .alm-solicitud-datos > div:nth-child(-n+2) { grid-column: 1 / -1; }
+.alm-ui .alm-solicitud-datos dt { color: var(--alm-muted); font-weight: 600; }
+.alm-ui .alm-solicitud-descripcion { font-size: 13px; line-height: 1.5; }
+.alm-ui .alm-solicitud-acciones { margin-top: auto; display: flex; flex-wrap: wrap; gap: 8px; padding-top: 4px; }
+@media (min-width: 1024px) { .alm-ui .alm-solicitudes-lista { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+@media (max-width: 480px) {
+  .alm-ui .alm-solicitudes-herramientas > label { flex: 1 1 100%; }
+  .alm-ui .alm-solicitudes-estados button { padding: 8px 9px; font-size: 12px; }
+}
+.alm-ui .alm-btn-primary:disabled { opacity: .55; cursor: wait; }
+/* Acciones destructivas compartidas: ficha y confirmación. */
+.alm-ui .alm-btn-danger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  max-width: 100%;
+  padding: 12px 18px;
+  border: 1px solid #dc2626;
+  border-radius: 12px;
+  background: #dc2626;
+  color: #fff;
+  font-size: .875rem;
+  font-weight: 600;
+  line-height: 1.4;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color .15s ease, border-color .15s ease;
+}
+.alm-ui .alm-btn-danger > svg { flex-shrink: 0; }
+.alm-ui .alm-btn-danger:hover:not(:disabled) { background: #b91c1c; border-color: #b91c1c; }
+.alm-ui .alm-btn-danger:focus-visible { outline: 3px solid var(--alm-link); outline-offset: 3px; }
+.alm-ui .alm-btn-danger:disabled { opacity: .5; cursor: not-allowed; }
+.alm-ui .alm-delete-entry { margin-top: 16px; margin-bottom: 16px; }
+/* Distribución vertical original; solo se evita que etiqueta y campo se toquen. */
+.alm-ui .alm-delete-form label > :is(textarea, input:not([type="checkbox"])) { display: block; margin-top: 8px; }
+.alm-ui .alm-delete-form > .alm-btn-secondary {
+  min-height: 44px;
+  padding: 12px 18px;
+  border: 1px solid var(--alm-border);
+  border-radius: 12px;
+  background: var(--alm-inset);
+  color: var(--alm-text);
+  font-size: .875rem;
+  font-weight: 600;
+  line-height: 1.4;
+  cursor: pointer;
+}
+.alm-ui .alm-delete-form > .alm-btn-secondary:hover:not(:disabled) { background: var(--alm-border); }
+.alm-ui .alm-delete-form > .alm-btn-secondary:focus-visible { outline: 3px solid var(--alm-link); outline-offset: 3px; }
+.alm-ui .alm-delete-form > .alm-btn-secondary:disabled { opacity: .5; cursor: not-allowed; }
+.alm-ui :where(button, a, input, select, textarea, summary):focus-visible {
+  outline: 3px solid var(--alm-link);
+  outline-offset: 3px;
+}
+.alm-ui .alm-field {
+  min-height: 46px;
+  background-color: var(--alm-inset) !important;
+  border-color: var(--alm-border) !important;
+  color: var(--alm-text) !important;
+  border-radius: 12px;
+  font-size: .9375rem;
+  line-height: 1.4;
+}
+.alm-ui .alm-field::placeholder { color: var(--alm-muted) !important; opacity: 1; }
+/* Auth: misma tarjeta para ingreso, registro y recuperación. */
+.alm-ui.alm-auth {
+  background: var(--alm-bg) !important;
+  color: var(--alm-text);
+}
+.alm-auth .alm-auth-backdrop {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 0%, rgba(37, 99, 235, .08), transparent 65%);
+}
+.alm-auth .alm-auth-header {
+  background: var(--alm-surface);
+  border-bottom: 1px solid var(--alm-border);
+  padding-block: 16px;
+}
+.alm-auth .alm-auth-header h1 { color: var(--alm-text); }
+.alm-auth .alm-auth-header p { color: var(--alm-muted); }
+.alm-auth .alm-auth-context { background: var(--alm-inset); border-color: var(--alm-border); color: var(--alm-muted); }
+.alm-auth .alm-auth-theme {
+  background: var(--alm-inset);
+  border-color: var(--alm-border);
+  color: var(--alm-text);
+  min-height: 40px;
+}
+.alm-auth .alm-auth-shell { max-width: 460px; }
+.alm-auth .alm-auth-card { padding: clamp(22px, 5vw, 32px); }
+.alm-auth .alm-auth-card h2 { font-size: 1.5rem; letter-spacing: -.035em; }
+.alm-auth .alm-auth-card form > div:first-child > p { font-size: .875rem; line-height: 1.65; }
+.alm-auth .alm-auth-card label { letter-spacing: .025em; text-transform: none; font-size: .8125rem; }
+.alm-auth .alm-auth-tabs { padding: 4px; gap: 4px; border-radius: 14px; }
+.alm-auth .alm-auth-tabs button { min-height: 42px; font-size: .875rem; }
+.alm-auth .alm-auth-footer p { color: var(--alm-muted); }
+.alm-ui .alm-brand-mark {
+  background: var(--alm-inset);
+  border: 1px solid var(--alm-border);
+  box-shadow: none;
+  color: var(--alm-text);
+}
+/* Dashboard: números predominantes, contexto documental secundario. */
+.alm-dashboard .alm-dashboard-header { background: var(--alm-surface); color: var(--alm-text); }
+.alm-dashboard .alm-dashboard-header h2 { font-size: clamp(1.125rem, 1rem + .5vw, 1.5rem); font-weight: 800; line-height: 1.35; letter-spacing: -.03em; }
+.alm-dashboard .alm-dashboard-header p { color: var(--alm-muted); }
+.alm-dashboard .alm-metric { padding: 20px; display: flex; flex-direction: column; gap: 12px; }
+.alm-dashboard .alm-metric h4 { font-size: .8125rem; line-height: 1.5; }
+.alm-dashboard .alm-metric-value { margin-top: 0; font-size: 2rem; font-weight: 800; line-height: 1.1; letter-spacing: -.045em; font-variant-numeric: tabular-nums; }
+.alm-dashboard .alm-metric-icon { display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; flex-shrink: 0; border-radius: 10px; background: var(--alm-inset); }
+.alm-dashboard .alm-metric-description { margin-top: auto; }
+.alm-dashboard .alm-chart-list > li { padding-block: 8px; }
+.alm-dashboard .alm-chart-list > li + li { border-top: 1px solid var(--alm-border); }
+.alm-dashboard .alm-chart-track { height: 12px; background: var(--alm-inset); }
+.alm-dashboard .alm-chart-bar { background: var(--alm-accent); }
+.alm-dashboard .alm-section-title { color: var(--alm-text) !important; text-transform: none; font-size: 1.0625rem; font-weight: 800; letter-spacing: -.02em; }
+@media (max-width: 480px) {
+  .alm-auth .alm-auth-header { padding-inline: 16px; }
+  .alm-auth .alm-auth-main { padding-block: 24px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .alm-ui :where(button, a, input) { transition: none; }
+}
+/* Configuración personal y confirmación de salida. */
+.alm-settings-layout { display: grid; grid-template-columns: 1fr; gap: 16px; align-items: start; }
+.alm-settings-nav { padding: 8px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; }
+.alm-settings-icon, .alm-logout-icon { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 12px; background: var(--alm-inset); color: var(--alm-link); flex-shrink: 0; font-size: 1.5rem; }
+.alm-settings-option { display: flex; align-items: flex-start; gap: 10px; text-align: left; padding: 12px; border-radius: 12px; border: 1px solid transparent; color: var(--alm-muted); }
+.alm-settings-option:hover { background: var(--alm-inset); }
+.alm-settings-option[aria-pressed="true"] { background: var(--alm-inset); border-color: var(--alm-border); color: var(--alm-link); }
+.alm-settings-nav-icon { width: 20px; text-align: center; flex-shrink: 0; }
+.alm-settings-option-help { display: block; margin-top: 3px; font-size: .75rem; line-height: 1.5; color: var(--alm-muted); }
+.alm-settings-content { min-width: 0; }
+.alm-theme-options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; max-width: 560px; }
+.alm-theme-option { overflow: hidden; text-align: left; border: 2px solid var(--alm-border); border-radius: 16px; color: var(--alm-text); }
+.alm-theme-option[aria-pressed="true"] { border-color: var(--alm-accent); }
+.alm-theme-preview { display: flex; height: 110px; margin: 10px 10px 0; border-radius: 8px; overflow: hidden; border: 1px solid; }
+.alm-preview-light { background: #f1f5f9; border-color: #dce4ee; }
+.alm-preview-dark { background: #080f1e; border-color: #29384e; }
+.alm-preview-sidebar { width: 22%; background: #dce4ee; }
+.alm-preview-dark .alm-preview-sidebar { background: #172338; }
+.alm-preview-body { flex: 1; display: grid; gap: 8px; padding: 12px; align-content: start; }
+.alm-preview-body > span { display: block; height: 12px; border-radius: 4px; background: #fff; }
+.alm-preview-dark .alm-preview-body > span { background: #29384e; }
+.alm-preview-body > span:first-child { width: 65%; background: #2563eb; }
+.alm-theme-choice { color: var(--alm-link); }
+.alm-logout-actions { display: flex; justify-content: flex-end; gap: 10px; padding-top: 4px; }
+.alm-logout-cancelar { background: var(--alm-inset); color: var(--alm-text); border: 1px solid var(--alm-border); }
+.alm-logout-actions button:disabled { opacity: .6; }
+@media (min-width: 900px) {
+  .alm-settings-layout { grid-template-columns: 240px minmax(0, 1fr); }
+  .alm-settings-nav { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+  .alm-settings-nav { grid-template-columns: 1fr; }
+  .alm-settings-option { padding: 10px; }
+  .alm-settings-option-help { display: none; }
+  .alm-theme-options { gap: 8px; }
+  .alm-logout-actions { flex-direction: column-reverse; }
+}
+/* Marco exterior de la SPA. No alcanza auth, topbar, sidebar ni modales.
+   El scroll de tablas y Gantt permanece dentro de sus componentes. */
+#view-container.alm-workspace {
+  --alm-page-gutter: 16px;
+  box-sizing: border-box;
+  min-width: 0;
+  padding: var(--alm-page-gutter);
+  overflow-x: hidden;
+}
+#view-container.alm-workspace > div:not(.fixed):not([role="dialog"]) {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1400px;
+  min-width: 0;
+  margin-inline: auto;
+}
+/* Solo raíces de las vistas asíncronas; nunca tarjetas o tablas interiores. */
+#view-container.alm-workspace > :is(
+  #dashboard-content,
+  #areas-content,
+  #areas-maq-content,
+  #mejoras-content,
+  #trabajadores-content,
+  #pv-content,
+  #gantt-content
+) > div:first-child:not(.fixed):not([role="dialog"]) {
+  width: 100%;
+  max-width: none;
+  min-width: 0;
+  margin-inline: 0;
+}
+@media (min-width: 768px) {
+  #view-container.alm-workspace { --alm-page-gutter: 24px; }
+}
+@media (min-width: 1280px) {
+  #view-container.alm-workspace { --alm-page-gutter: 32px; }
+}
+/* Componentes de catálogo activados mediante clases específicas.
+   Las tarjetas compartidas del Dashboard conservan su aspecto anterior. */
+.alm-module-page .alm-module-header { display: flex; align-items: center; gap: 14px; padding: 20px; }
+.alm-module-page .alm-panel > .alm-module-header { padding: 0; }
+.alm-module-page .alm-module-icon { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; flex-shrink: 0; border-radius: 12px; background: var(--alm-inset) !important; border: 1px solid var(--alm-border); color: var(--alm-link); box-shadow: none; font-size: 1.5rem; }
+.alm-module-page .alm-module-grid { gap: 16px; align-items: stretch; }
+.alm-module-page .alm-module-card { min-width: 0; padding: 20px; border: 1px solid var(--alm-border); border-radius: 20px; background: var(--alm-surface) !important; box-shadow: var(--alm-shadow); gap: 16px; transition: border-color .15s ease; }
+.alm-module-page .alm-module-card:hover { transform: none; border-color: var(--alm-accent); box-shadow: var(--alm-shadow); }
+.alm-module-page .alm-module-card h4 { font-size: 1.0625rem; line-height: 1.4; font-weight: 800; letter-spacing: -.02em; }
+.alm-module-page .alm-module-card h4 + p { font-size: .8125rem; line-height: 1.65; color: var(--alm-muted); }
+.alm-module-page .alm-module-card > div:last-child { margin-top: auto; padding-top: 14px; font-size: .8125rem; }
+.alm-module-page .alm-module-card > div:last-child > span:first-child { color: var(--alm-muted) !important; }
+.alm-module-page .alm-module-count { font-variant-numeric: tabular-nums; background: var(--alm-inset) !important; color: var(--alm-link); border-color: var(--alm-border); }
+.alm-module-page .alm-module-stats-grid { gap: 12px; }
+.alm-module-page .alm-stat-card { min-width: 0; padding: 16px; border-radius: 20px; border-color: var(--alm-border); background: var(--alm-surface) !important; box-shadow: var(--alm-shadow); gap: 12px; }
+.alm-module-page .alm-stat-card .alm-module-icon { width: 36px; height: 36px; font-size: 1.25rem; }
+.alm-module-page .alm-stat-card p:first-child { font-size: .6875rem; line-height: 1.5; }
+.alm-module-page .alm-stat-card p:last-child { font-size: 1.75rem; font-weight: 800; line-height: 1.2; margin-top: 4px; font-variant-numeric: tabular-nums; }
+.alm-module-page .alm-mini-stats { gap: 8px; }
+.alm-module-page .alm-mini-stat { min-width: 0; padding: 10px; border: 1px solid var(--alm-border); border-radius: 12px; background: var(--alm-inset) !important; }
+.alm-module-page .alm-mini-stat p:first-child { font-size: .6875rem; text-transform: none; line-height: 1.45; color: var(--alm-muted); }
+.alm-module-page .alm-mini-stat p:last-child { font-size: 1.375rem; font-weight: 800; line-height: 1.2; margin-top: 5px; font-variant-numeric: tabular-nums; }
+.alm-areas-page .alm-module-card > .absolute { display: none; }
+@media (max-width: 480px) {
+  .alm-module-page .alm-module-card, .alm-module-page .alm-module-header { padding: 16px; }
+  .alm-module-page .alm-mini-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+.alm-module-page > .alm-panel.alm-module-header { padding: 20px; }
+@media (max-width: 480px) {
+  .alm-module-page > .alm-panel { padding: 16px; }
+  .alm-module-page > .alm-panel.alm-module-header { padding: 16px; }
+}
+
+/* Presentación de Inventario, Máquinas y Jardinería.
+   No alcanza las tarjetas de Áreas ni los formularios operativos. */
+.alm-module-page .alm-catalog-header { padding: 20px; gap: 16px; }
+.alm-inv-filtros { display: grid; gap: .75rem; align-items: end; }
+.alm-inv-acciones { display: flex; flex-wrap: wrap; gap: .75rem; }
+.alm-inv-acciones button { flex: 1 1 auto; min-height: 44px; }
+@media (min-width: 640px) {
+  .alm-inv-filtros { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); }
+  .alm-inv-acciones { grid-column: 1 / -1; justify-content: flex-end; }
+  .alm-inv-acciones button { flex: 0 0 auto; }
+}
+@media (min-width: 1200px) {
+  .alm-inv-filtros:has(.alm-inv-acciones) { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr) auto; }
+  .alm-inv-acciones { grid-column: auto; }
+}
+.alm-inventory #inv-total { padding: 6px 12px; border-radius: 12px; background: var(--alm-inset); color: var(--alm-muted); font-variant-numeric: tabular-nums; }
+.alm-module-page .alm-record-grid { gap: 16px; align-items: stretch; }
+.alm-module-page .alm-record-card { display: flex; flex-direction: column; min-width: 0; height: 100%; padding: 20px; border: 1px solid var(--alm-border); border-radius: 20px; background: var(--alm-surface); color: var(--alm-text); box-shadow: var(--alm-shadow); text-align: left; }
+.alm-module-page .alm-record-card:hover { border-color: var(--alm-accent); box-shadow: var(--alm-shadow); }
+.alm-module-page .alm-record-card :is(h3, .alm-record-title) { font-size: 1rem; line-height: 1.5; font-weight: 800; letter-spacing: -.015em; overflow-wrap: anywhere; }
+.alm-module-page .alm-record-card > :is(button, span):last-child { margin-top: auto; padding-top: 14px; }
+.alm-machines .alm-record-card > div:last-child { margin-top: auto; padding-top: 14px; gap: 8px; flex-wrap: wrap; }
+.alm-module-page .alm-catalog-tabs { gap: 8px; }
+.alm-module-page .alm-catalog-tabs button { min-height: 44px; border: 1px solid var(--alm-border); border-radius: 12px; padding: 10px 16px; font-size: .8125rem; line-height: 1.4; }
+.alm-module-page .alm-catalog-tabs button[aria-pressed="false"] { background: var(--alm-surface); color: var(--alm-muted); }
+.alm-module-page .alm-catalog-tabs button[aria-pressed="true"] { background: var(--alm-accent); border-color: var(--alm-accent); color: #fff; }
+:is(.alm-inventory .alm-filter-panel, .alm-machines, .alm-gardening) :is(input, select) { min-height: 44px; min-width: 0; border-width: 1px; border-color: var(--alm-border); border-radius: 12px; background: var(--alm-inset); color: var(--alm-text); font-size: .875rem; }
+.alm-machines :is(.bg-white, .bg-slate-50, .bg-slate-100) { background-color: var(--alm-surface); }
+.alm-machines :is(.bg-slate-50, .bg-slate-100) { background-color: var(--alm-inset); }
+.alm-machines :is(.text-slate-900, .text-slate-800, .text-slate-700) { color: var(--alm-text); }
+.alm-machines :is(.text-slate-600, .text-slate-500, .text-slate-400) { color: var(--alm-muted); }
+.alm-machines :is(.border-slate-100, .border-slate-200) { border-color: var(--alm-border); }
+.alm-machines .alm-record-card > p { white-space: normal; overflow-wrap: anywhere; }
+.alm-gardening .alm-record-card > button { align-self: flex-start; }
+.alm-gardening .alm-irrigation { background: var(--alm-inset); border-color: var(--alm-border); }
+.alm-garden-dialog :is(dt, dd) { line-height: 1.65; overflow-wrap: anywhere; }
+.alm-garden-dialog dd { margin-top: 6px; }
+.alm-inventory #inv-paginacion button, .alm-gardening #jda-resultados > div:last-child > button { min-height: 44px; }
+@media (max-width: 600px) {
+  .alm-module-page .alm-catalog-header, .alm-module-page .alm-record-card { padding: 16px; }
+  .alm-module-page .alm-catalog-tabs button { flex: 1 1 auto; }
+  .alm-inventory #inv-paginacion > div { flex-wrap: wrap; justify-content: center; }
+  .alm-machines .alm-record-card > div:last-child { align-items: flex-start; }
+}
+
+/* Proyectos y listado Gantt. El diagrama conserva su distribución. */
+.alm-project-page .alm-project-header { padding: 20px; align-items: flex-start; background-image: none; color: var(--alm-text); box-shadow: var(--alm-shadow); }
+.alm-project-page .alm-project-header > div { min-width: 0; }
+.alm-project-page .alm-project-header > div > span { display: inline-block; padding: 0; background: transparent; color: var(--alm-link); font-size: .6875rem; letter-spacing: .06em; }
+.alm-project-page .alm-project-header > div > p { color: var(--alm-muted); font-size: .8125rem; line-height: 1.65; max-width: 70ch; }
+.alm-project-page .alm-project-count { flex-shrink: 0; padding: 12px 20px; border: 1px solid var(--alm-border); border-radius: 12px; background: var(--alm-inset); color: var(--alm-text); }
+.alm-project-page .alm-project-count p:last-child { color: var(--alm-muted); }
+.alm-project-page .alm-project-card { min-width: 0; border: 1px solid var(--alm-border); border-radius: 20px; background: var(--alm-surface); color: var(--alm-text); box-shadow: var(--alm-shadow); }
+.alm-project-page .alm-project-card:hover { transform: none; border-color: var(--alm-accent); box-shadow: var(--alm-shadow); }
+.alm-project-page .alm-project-card h4 { font-size: 1.0625rem; line-height: 1.45; letter-spacing: -.02em; overflow-wrap: anywhere; }
+.alm-project-page .alm-project-emblem { height: 64px; justify-content: flex-start; padding-inline: 24px; font-size: 1.75rem; background: var(--alm-inset); }
+.alm-project-page .alm-project-card :is(.justify-between) { gap: 12px; flex-wrap: wrap; }
+.alm-project-page .alm-project-card :is(.text-slate-800, .text-slate-700, .text-slate-900) { color: var(--alm-text); }
+.alm-project-page .alm-project-card :is(.text-slate-600, .text-slate-500, .text-slate-400) { color: var(--alm-muted); }
+.alm-project-page .alm-project-card :is(.border-slate-100, .border-slate-200) { border-color: var(--alm-border); }
+.alm-renovations .alm-project-card :is(.bg-slate-50, .bg-slate-100) { background: var(--alm-inset); }
+.alm-renovations .alm-project-card :is(.bg-purple-50\/50, .bg-slate-50\/50) { background: var(--alm-inset); border-color: var(--alm-border); }
+.dark .alm-renovations .alm-project-card :is(.text-purple-700, .text-purple-900) { color: var(--alm-link); }
+.alm-renovations .alm-project-card select, .alm-gantt-page > label > select { min-height: 44px; border: 1px solid var(--alm-border); border-radius: 12px; background: var(--alm-inset); color: var(--alm-text); font-size: .875rem; }
+.alm-gantt-page > label { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 16px; border: 1px solid var(--alm-border); border-radius: 16px; background: var(--alm-surface); }
+.alm-gantt-page > label > select { margin-top: 0; }
+.alm-gantt-page .alm-record-card > button:last-child { padding: 10px 16px; min-height: 44px; align-self: flex-start; }
+.alm-gantt-page > section > h3 { padding-block: 8px; font-variant-numeric: tabular-nums; color: var(--alm-muted); }
+.alm-gantt-page .alm-catalog-header > button { min-height: 44px; }
+@media (max-width: 600px) {
+  .alm-project-page .alm-project-header, .alm-project-page .alm-project-card { padding: 16px; }
+  .alm-project-page .alm-project-card:has(.alm-project-emblem) { padding: 0; }
+  .alm-project-page .alm-project-count { width: 100%; }
+  .alm-gantt-page > label > select, .alm-gantt-page .alm-catalog-header > button { width: 100%; }
+}
+
+/* Fichas de personal y prevención. */
+:is(.alm-workers .alm-worker-card, .alm-prevention .alm-prevention-card) { min-width: 0; height: 100%; border: 1px solid var(--alm-border); border-radius: 20px; background: var(--alm-surface); box-shadow: var(--alm-shadow); }
+:is(.alm-workers .alm-worker-card, .alm-prevention .alm-prevention-card):hover { border-color: var(--alm-accent); box-shadow: var(--alm-shadow); }
+:is(.alm-workers .alm-worker-card, .alm-prevention .alm-prevention-card) h4 { font-size: 1.0625rem; font-weight: 800; line-height: 1.45; letter-spacing: -.02em; overflow-wrap: anywhere; }
+.alm-workers .alm-worker-card > div { padding: 20px; }
+.alm-workers .alm-worker-card p { overflow-wrap: anywhere; line-height: 1.65; }
+.alm-workers .alm-catalog-header > div:last-child { flex-wrap: wrap; gap: 8px; margin-left: 0; }
+.alm-prevention .alm-prevention-card { padding: 20px; display: flex; flex-direction: column; }
+.alm-prevention .alm-prevention-card > div:last-child { margin-top: auto; padding-top: 16px; }
+:is(.alm-workers, .alm-prevention) button { min-height: 44px; }
+.alm-prevention :is(input, select) { min-height: 44px; min-width: 0; border-radius: 12px; border-color: var(--alm-border); background: var(--alm-inset); color: var(--alm-text); }
+.alm-personnel-dialog :is(input, select, textarea) { min-height: 44px; font-size: .875rem; line-height: 1.5; border-radius: 12px; border-color: var(--alm-border); background: var(--alm-inset); color: var(--alm-text); }
+.alm-personnel-dialog button { min-height: 44px; }
+@media (max-width: 600px) {
+  .alm-workers .alm-worker-card > div, .alm-prevention .alm-prevention-card { padding: 16px; }
+  .alm-workers .alm-worker-card h4 { font-size: 1rem; }
+  .alm-workers .alm-worker-card .items-start { flex-wrap: wrap; }
+  .alm-prevention .alm-prevention-card > div:last-child { gap: 10px; }
+}
+
+/* Fichas de áreas: acciones antes de sus cinco secciones. */
+.alm-area-detail-header { background: #142238; color: #edf2fa; border-bottom: 1px solid #29384e; }
+.alm-area-detail-header p { color: #c5d1e1; line-height: 1.6; }
+.alm-area-detail-header h2 { font-size: clamp(1.125rem, 1rem + .5vw, 1.5rem); line-height: 1.4; overflow-wrap: anywhere; }
+.alm-area-detail-header > button { align-self: flex-start; flex-shrink: 0; min-width: 44px; min-height: 44px; border-radius: 12px; }
+.alm-area-detail-icon { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; flex-shrink: 0; border-radius: 12px; background: rgba(255,255,255,.08); font-size: 1.5rem; }
+.alm-area-actions { display: flex; align-items: center; justify-content: flex-end; gap: 12px; }
+.alm-area-actions > button { min-height: 44px; padding: 10px 16px; border: 1px solid transparent; border-radius: 12px; background: var(--alm-accent); color: #fff; font-size: .8125rem; line-height: 1.5; font-weight: 700; text-align: center; }
+.alm-area-actions > button:hover { background: #1d4ed8; }
+
+/* Navegación horizontal auxiliar, visible únicamente si hay desbordamiento. */
+.gantt-horizontal-nav {
+  --gantt-track: #dce4ee;
+  --gantt-thumb: #64748b;
+  --gantt-edge: #f8fafc;
+  position: sticky;
+  bottom: 0;
+  z-index: 2;
+  margin-top: 6px;
+  padding: 6px 10px 3px;
+  border-top: 1px solid var(--alm-border, #dce4ee);
+  border-radius: 0 0 10px 10px;
+  background: var(--alm-inset, #f8fafc);
+  color: var(--alm-muted, #53647b);
+}
+.gantt-horizontal-nav[hidden] { display: none; }
+.gantt-horizontal-nav p { margin: 0; font-size: 11px; font-weight: 500; }
+.gantt-horizontal-nav input[type="range"] {
+  display: block;
+  width: 100%;
+  height: 28px;
+  margin: 0;
+  padding: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  cursor: ew-resize;
+}
+.gantt-horizontal-nav input[type="range"]::-webkit-slider-runnable-track { height: 6px; border-radius: 6px; background: var(--gantt-track); }
+.gantt-horizontal-nav input[type="range"]::-moz-range-track { height: 6px; border-radius: 6px; background: var(--gantt-track); }
+.gantt-horizontal-nav input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 32px;
+  height: 16px;
+  margin-top: -5px;
+  border: 2px solid var(--gantt-edge);
+  border-radius: 8px;
+  background: var(--gantt-thumb);
+}
+.gantt-horizontal-nav input[type="range"]::-moz-range-thumb { width: 32px; height: 16px; box-sizing: border-box; border: 2px solid var(--gantt-edge); border-radius: 8px; background: var(--gantt-thumb); }
+.gantt-horizontal-nav input[type="range"]:focus-visible { outline: 2px solid var(--alm-accent, #2563eb); outline-offset: 1px; border-radius: 6px; }
+.dark .gantt-horizontal-nav {
+  --gantt-track: #34445c;
+  --gantt-thumb: #a7b5c9;
+  --gantt-edge: #172338;
+  background: var(--alm-inset, #172338);
+  color: var(--alm-muted, #a7b5c9);
+  border-color: var(--alm-border, #29384e);
+}
+@media (max-width: 600px) {
+  .alm-area-detail-header { padding: 16px; }
+  .alm-area-actions > button { width: 100%; }
+}
+
+/* UI-12: solo pantallas marcadas; no alcanza Dashboard ni modales. */
+.alm-main-page { width:100%; min-width:0; }
+.alm-main-page > .alm-page-heading { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; padding:20px; margin-inline:0; background:var(--alm-surface); color:var(--alm-text); border:1px solid var(--alm-border); border-radius:20px; box-shadow:var(--alm-shadow); }
+.alm-page-heading .alm-heading-main { display:flex; align-items:center; gap:14px; flex:1 1 280px; min-width:0; }
+.alm-page-heading .alm-heading-text { min-width:0; }
+.alm-page-heading .alm-title { margin:0; font-size:1.25rem; font-weight:800; line-height:1.35; letter-spacing:-.025em; overflow-wrap:anywhere; }
+.alm-page-heading .alm-heading-text > p { margin:6px 0 0; font-size:.875rem; line-height:1.6; max-width:75ch; overflow-wrap:anywhere; }
+.alm-page-heading .alm-heading-actions { display:flex; flex-wrap:wrap; align-items:center; justify-content:flex-end; gap:12px; min-width:0; }
+.alm-page-heading .alm-module-icon { width:44px; height:44px; border-radius:12px; }
+.alm-page-heading .alm-heading-actions > button, .alm-btn-secondary { min-height:44px; padding:10px 16px; border:1px solid var(--alm-border); border-radius:12px; font-size:.8125rem; font-weight:700; line-height:1.4; }
+.alm-btn-secondary { background:var(--alm-inset); color:var(--alm-text); }
+.alm-btn-secondary:focus-visible { outline:2px solid var(--alm-link); outline-offset:3px; }
+.alm-heading-count { display:flex; flex-direction:column; gap:4px; text-align:center; padding:10px 16px; border:1px solid var(--alm-border); border-radius:12px; background:var(--alm-inset); }
+.alm-heading-count strong { font-size:1.75rem; line-height:1.2; font-variant-numeric:tabular-nums; }
+.alm-heading-count span { font-size:.75rem; color:var(--alm-muted); }
+.alm-main-page .alm-summary-grid { gap:12px; align-items:stretch; }
+.alm-main-page .alm-summary-card { display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:8px; min-width:0; min-height:124px; height:100%; padding:16px; border:1px solid var(--alm-border); border-radius:16px; background:var(--alm-surface) !important; color:var(--alm-text); }
+.alm-main-page .alm-summary-card > * { margin-inline:0 !important; min-width:0; }
+.alm-main-page .alm-summary-card p { overflow-wrap:anywhere; }
+.alm-main-page .alm-stat-card p:first-child, .alm-main-page .alm-summary-card p.alm-summary-label { font-size:.75rem; line-height:1.5; text-transform:none; font-weight:600; color:var(--alm-muted); }
+.alm-main-page .alm-stat-card p:last-child, .alm-main-page .alm-summary-card p.alm-summary-value { font-size:1.75rem; line-height:1.25; font-weight:800; color:var(--alm-text); font-variant-numeric:tabular-nums; }
+.alm-main-page .alm-stat-card p:last-child > span { font-size:.875rem; }
+.alm-admin .alm-summary-card > div:first-child { justify-content:center; gap:8px; }
+.alm-admin .alm-summary-card > div:nth-child(2) { font-size:1.75rem; line-height:1.25; font-weight:800; font-variant-numeric:tabular-nums; }
+.alm-admin .alm-summary-card > p { font-size:.6875rem; line-height:1.5; color:var(--alm-muted); }
+.alm-gantt-page .alm-gantt-card-action { margin-top:auto; padding-top:18px; }
+.alm-gantt-page .alm-gantt-card-action > button { min-height:44px; padding:10px 16px; border-radius:12px; font-size:.8125rem; }
+@media (max-width:600px) {
+  .alm-main-page > .alm-page-heading { padding:16px; }
+  .alm-page-heading .alm-heading-actions { width:100%; justify-content:flex-start; }
+  .alm-main-page .alm-summary-card { min-height:112px; padding:14px; }
+  .alm-page-heading .alm-title { font-size:1.125rem; }
+}
+
+.alm-admin .alm-summary-card > div:first-child > span:first-child { font-size:.75rem; line-height:1.5; text-transform:none; color:var(--alm-muted); }
+
+.alm-main-page > .alm-panel:not(.alm-page-heading) { padding:20px; }
+@media (max-width:600px) { .alm-main-page > .alm-panel:not(.alm-page-heading) { padding:16px; } }
+
+/* Shared summaries embedded in Dashboard; keep other module cards unchanged. */
+.alm-area-summary-grid { align-items:stretch; }
+.alm-ui .alm-area-summary { display:flex; flex-direction:column; align-items:center; gap:16px; min-width:0; height:100%; padding:24px; text-align:center; background:var(--alm-surface); border:1px solid var(--alm-border); border-radius:20px; color:var(--alm-text); }
+.alm-ui .alm-area-summary .alm-module-icon { display:flex; align-items:center; justify-content:center; width:56px; height:56px; margin:0 auto; font-size:1.75rem; background:var(--alm-bg); border:1px solid var(--alm-border); border-radius:16px; }
+.alm-ui .alm-area-summary h4 { margin:0; font-size:1.125rem; line-height:1.5; font-weight:800; overflow-wrap:anywhere; }
+.alm-ui .alm-area-summary .alm-area-description { margin:0; max-width:34ch; min-height:4.8em; color:var(--alm-muted); font-size:.8125rem; line-height:1.6; overflow-wrap:anywhere; }
+.alm-area-summary .alm-area-values { display:flex; align-items:center; justify-content:center; min-height:124px; width:100%; font-size:.8125rem; color:var(--alm-muted); }
+.alm-area-summary .alm-area-metrics { display:flex; flex-wrap:wrap; align-items:stretch; justify-content:center; gap:8px; width:100%; margin:0; }
+.alm-area-summary .alm-area-metric { display:flex; flex-direction:column; justify-content:space-between; gap:10px; flex:0 1 110px; min-width:0; padding:12px 8px; background:var(--alm-bg); border:1px solid var(--alm-border); border-radius:12px; }
+.alm-area-summary .alm-area-metric dt { font-size:.6875rem; line-height:1.5; font-weight:600; color:var(--alm-muted); overflow-wrap:anywhere; }
+.alm-area-summary .alm-area-metric dd { margin:0; font-size:1.625rem; line-height:1.2; font-weight:800; font-variant-numeric:tabular-nums; color:var(--alm-text); }
+.alm-area-summary footer { width:100%; margin-top:auto; padding-top:16px; border-top:1px solid var(--alm-border); }
+.alm-area-summary footer button { min-height:44px; padding:8px 16px; border-radius:12px; font-size:.8125rem; font-weight:700; color:var(--alm-link); }
+.alm-area-summary footer button:focus-visible { outline:2px solid currentColor; outline-offset:3px; }
+@media (max-width:600px) { .alm-ui .alm-area-summary { padding:20px 16px; } }
+
+#admin-invitacion-dialog::backdrop,
+#admin-nuevo-usuario-dialog::backdrop,
+#admin-revocar-dialog::backdrop,
+#admin-aprobacion-ficha-dialog::backdrop,
+#trabajador-estado-dialog::backdrop,
+.alm-tarea-dialog::backdrop,
+#admin-hora-dialog::backdrop,
+#mnt-gestion-tv::backdrop,
+#mnt-alta-ubicacion::backdrop {
+  background: rgb(15 23 42 / 65%);
+  backdrop-filter: blur(3px);
+}
+#trabajador-estado-dialog,
+#admin-aprobacion-ficha-dialog {
+  width: calc(100% - 2rem);
+  max-height: 90vh;
+}
+#trabajador-estado-dialog :disabled, #admin-aprobacion-ficha-dialog :disabled { opacity: .6; }
+#admin-aprobacion-ficha-dialog { overflow-y: auto; overflow-wrap: anywhere; }
+#admin-hora-dialog {
+  width: min(22rem, calc(100% - 2rem));
+  max-height: 90vh;
+}
+#admin-revocar-dialog [data-revocar] { background-color: #be123c; }
+#admin-revocar-dialog [data-revocar]:disabled { opacity: .6; }
+
+/* Formularios en la capa superior y en overlays flex. La visibilidad
+   sigue a cargo de cada modal, incluidos sus estados anidados. */
+dialog[open]:modal:has(> form) {
+  position: fixed;
+  inset: 0;
+  /* Las utilidades space-y del módulo pueden fijar márgenes en este hijo. */
+  margin: auto !important;
+  box-sizing: border-box;
+  block-size: fit-content;
+  max-block-size: calc(100vh - 2rem);
+  max-block-size: calc(100dvh - 2rem);
+  overflow-y: auto;
+}
+
+.alm-tarea-dialog {
+  width: min(32rem, calc(100% - 2rem));
+  color: var(--alm-text);
+}
+
+.fixed.inset-0.flex.justify-center:is(
+  :is([id*="modal"], [aria-modal="true"]):has(> :is(div, section) form),
+  #modal-convert-request, #inv-modal-nuevo, #inv-modal-operacion,
+  #pv-archivos-modal-subir, #pv-modal-formulario-prevencion
+):not(#mnt-modal-subapartado-overlay, #inv-modal-ficha, #pv-modal-carta-gantt) {
+  align-items: center;
+
+  > :is(div, section):first-child {
+    box-sizing: border-box;
+    min-block-size: 0;
+    max-block-size: 100%;
+    margin-block: 0;
+    overflow-y: auto;
+  }
+}
+
+/* Acabado compartido del panel. Conserva anchos, colores de acción y
+   disposición de cada formulario. */
+:is(
+  dialog:modal:has(> form),
+  .fixed.inset-0.flex.justify-center:is(
+    :is([id*="modal"], [aria-modal="true"]):has(> :is(div, section) form),
+    #modal-convert-request, #inv-modal-nuevo, #inv-modal-operacion,
+    #pv-archivos-modal-subir, #pv-modal-formulario-prevencion
+  ):not(#mnt-modal-subapartado-overlay, #inv-modal-ficha, #pv-modal-carta-gantt) > :is(div, section):first-child
+) {
+  --alm-form-gap: .75rem;
+  border-radius: 1rem;
+
+  & > header,
+  & > :is(div, section):first-child:has(> :is(h2, h3)) {
+    padding-block-end: var(--alm-form-gap);
+  }
+
+  form > :is(h2, h3):first-child {
+    padding-block-end: .25rem;
+  }
+
+  form :is(div, footer).flex:has(> button[type="submit"]) {
+    gap: var(--alm-form-gap);
+  }
+
+  :is(h2, h3):is(:first-child, [id]) {
+    font-size: 1.125rem;
+    line-height: 1.4;
+    font-weight: 700;
+    letter-spacing: normal;
+    text-transform: none;
+    overflow-wrap: anywhere;
+  }
+
+  form label {
+    font-size: .875rem;
+    line-height: 1.4;
+    font-weight: 600;
+    text-transform: none;
+  }
+
+  :is(input:not([type="checkbox"], [type="radio"], [type="hidden"], [type="range"]), select, textarea) {
+    min-inline-size: 0;
+    max-inline-size: 100%;
+    min-block-size: 2.5rem;
+    border-radius: .75rem;
+  }
+
+  form :is(button[type="submit"], button.alm-btn-secondary, button.alm-btn-danger) {
+    min-block-size: 2.5rem;
+    border-radius: .75rem;
+  }
+}
+
+.alm-tarea-dialog select[name="equipo_id"]:disabled {
+  opacity: .78;
+  cursor: default;
+}
+
+/* Acciones compartidas. Calendarios y controles de navegación conservan
+   sus tamaños y su tratamiento visual propio. */
+button:is(.alm-btn-primary, .alm-btn-secondary, .alm-btn-danger):not(
+  [data-calendario] *, [data-mqa-pestana], [data-filtro], [aria-pressed]
+) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  min-height: 44px;
+  max-width: 100%;
+  padding: .625rem 1rem;
+  border-radius: .75rem;
+  font: inherit;
+  font-size: .875rem;
+  font-weight: 700;
+  line-height: 1.4;
+  text-align: center;
+  white-space: normal;
+  transition: background-color .15s ease, border-color .15s ease;
+
+  &.alm-btn-secondary {
+    background: var(--alm-surface, #fff);
+    border: 1px solid var(--alm-border, #cbd5e1);
+    color: var(--alm-text, #142238);
+  }
+
+  &.alm-btn-secondary:hover:not(:disabled) {
+    background: var(--alm-inset, #f8fafc);
+    border-color: var(--alm-link, #1d4ed8);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--alm-link, #1d4ed8);
+    outline-offset: 3px;
+  }
+
+  &:disabled {
+    opacity: .55;
+    cursor: not-allowed;
+  }
+}
+
+alm-historial-scroll {
+  display: block;
+  overflow-y: scroll;
+  scrollbar-gutter: stable;
+  scrollbar-color: var(--alm-muted) var(--alm-inset);
+}
+alm-historial-scroll:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+#tareas-pendientes [data-lista] > .tareas-pendientes-grupo + .tareas-pendientes-grupo {
+  margin-top: 1rem;
+}
+
+/* Filas compactas del módulo Tareas pendientes. */
+#tareas-pendientes .tarea-pendiente-fila {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  padding: 12px 16px;
+}
+#tareas-pendientes .tarea-pendiente-fila > :first-child {
+  flex: 1 1 18rem;
+}
+#tareas-pendientes .tarea-pendiente-descripcion {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+:is(#tareas-pendientes, [data-calendario]) .tareas-calendario-encabezado,
+:is(#tareas-pendientes, [data-calendario]) .tareas-calendario-periodo {
+  display: flex;
+  align-items: center;
+  gap: clamp(4px, 1vw, 8px);
+}
+
+:is(#tareas-pendientes, [data-calendario]) .tareas-calendario-encabezado {
+  justify-content: space-between;
+}
+
+:is(#tareas-pendientes, [data-calendario]) .tareas-calendario-periodo,
+:is(#tareas-pendientes, [data-calendario]) .tareas-calendario-selector {
+  min-width: 0;
+}
+
+:is(#tareas-pendientes, [data-calendario]) .tareas-calendario-selector {
+  position: relative;
+  border-radius: .5rem;
+  text-align: center;
+}
+
+:is(#tareas-pendientes, [data-calendario]) [data-mes-titulo] {
+  font-size: clamp(.875rem, 3vw, 1.125rem);
+  text-decoration: underline dotted;
+  text-underline-offset: .2em;
+}
+
+:is(#tareas-pendientes, [data-calendario]) [data-mes-titulo]::first-letter {
+  text-transform: uppercase;
+}
+
+:is(#tareas-pendientes, [data-calendario]) .tareas-calendario-encabezado button {
+  flex-shrink: 0;
+  white-space: nowrap;
+  padding-inline: clamp(.375rem, 2vw, .75rem);
+}
+
+:is(#tareas-pendientes, [data-calendario]) .tareas-calendario-selector:focus-within {
+  outline: 2px solid var(--alm-link);
+  outline-offset: 2px;
+}
+
+:is(#tareas-pendientes, [data-calendario]) [data-mes],
+:is(#tareas-pendientes, [data-calendario]) [data-mes]::-webkit-calendar-picker-indicator {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+
+:is(#tareas-pendientes, [data-calendario]) .tareas-calendario-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: clamp(2px, 1vw, 8px);
+  text-align: center;
+  font-size: .8125rem;
+}
+
+:is(#tareas-pendientes, [data-calendario]) .tareas-calendario-dia {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 0;
+  min-height: 46px;
+  padding: .2rem 0;
+  border: 1px solid var(--alm-border);
+  border-radius: .5rem;
+}
+
+:is(#tareas-pendientes, [data-calendario]) .tareas-calendario-dia:hover,
+:is(#tareas-pendientes, [data-calendario]) .tareas-calendario-dia[aria-current="date"] {
+  background: var(--alm-inset);
+  color: var(--alm-link);
+  font-weight: 700;
+}
+
+:is(#tareas-pendientes, [data-calendario]) .tareas-calendario-dia[aria-pressed="true"] {
+  outline: 2px solid var(--alm-link);
+  outline-offset: -2px;
+}
+
+:is(#tareas-pendientes, [data-calendario]) .tareas-calendario-dia:focus-visible {
+  outline: 2px dashed var(--alm-link);
+  outline-offset: -3px;
+}
+
+:is(#tareas-pendientes, [data-calendario]) .tareas-calendario-cantidad {
+  padding: 0 .2rem;
+  border-radius: .5rem;
+  background: var(--alm-inset);
+  color: var(--alm-link);
+  font-size: .75rem;
+  font-weight: 700;
+}
+
+:is(#tareas-pendientes, [data-calendario]) .tarea-pendiente-vencida,
+:is(#tareas-pendientes, [data-calendario]) .tarea-pendiente-proxima {
+  padding: 0 .35rem;
+  border-radius: .5rem;
+  background: #fef3c7;
+  color: #78350f;
+}
+
+:is(#tareas-pendientes, [data-calendario]) .tarea-pendiente-vencida {
+  background: #ffe4e6;
+  color: #881337;
+}
+
+/* TV Habitaciones: el diálogo nativo es también la raíz de .alm-ui. */
+#mnt-gestion-tv,
+#mnt-alta-ubicacion {
+  background: var(--alm-surface);
+  color: var(--alm-text);
+  border: 1px solid var(--alm-border);
+  box-shadow: var(--alm-shadow);
+}
+#mnt-gestion-tv .mnt-gestion-tv-campo,
+#mnt-gestion-tv [data-cerrar],
+#mnt-alta-ubicacion .mnt-gestion-tv-campo,
+#mnt-alta-ubicacion [data-cerrar] {
+  background: var(--alm-inset);
+  color: var(--alm-text);
+  border: 1px solid var(--alm-border);
+  border-radius: 12px;
+}
+#mnt-gestion-tv .mnt-gestion-tv-campo:hover:not(:disabled) {
+  border-color: var(--alm-link);
+}
+#mnt-gestion-tv [data-cerrar]:hover:not(:disabled) {
+  background: var(--alm-border);
+}
+#mnt-gestion-tv :is(input, select, textarea, button):focus-visible,
+#mnt-alta-ubicacion :is(input, select, button):focus-visible {
+  outline: 2px solid var(--alm-link);
+  outline-offset: 2px;
+}
+#mnt-gestion-tv :disabled,
+#mnt-alta-ubicacion :disabled {
+  opacity: .6;
+}
+.dark #mnt-gestion-tv,
+.dark #mnt-alta-ubicacion {
+  color-scheme: dark;
+}
+.mnt-tv-busqueda {
+  flex: 1 1 14rem;
+  min-width: 0;
+}
+
+.alm-ui .mnt-tv-alta {
+  border-color: var(--alm-link);
+  flex-shrink: 0;
+  max-width: 100%;
+}
+.alm-ui .mnt-tv-alta:focus-visible {
+  outline: 2px solid var(--alm-link);
+  outline-offset: 2px;
+}
+#mnt-gestion-tv .mnt-gestion-tv-campo[readonly],
+#mnt-gestion-tv .mnt-gestion-tv-campo[readonly]:hover {
+  background: var(--alm-bg);
+  border-color: var(--alm-border);
+  color: var(--alm-muted);
+  cursor: default;
+}
+
+.mnt-tv-respuestas:has(input:checked) .mnt-tv-sin-dato {
+  display: none;
+}
+.mnt-tv-respuestas .mnt-tv-respuesta {
+  border: 1px solid var(--alm-border);
+  border-radius: 999px;
+  padding: .25rem .65rem;
+  cursor: pointer;
+}
+.mnt-tv-respuesta:has(input[value="true"]:checked) {
+  background: #166534;
+  border-color: #166534;
+  color: #fff;
+}
+.mnt-tv-respuesta:has(input[value="false"]:checked) {
+  background: #991b1b;
+  border-color: #991b1b;
+  color: #fff;
+}
+.mnt-tv-respuesta:has(input:focus-visible) {
+  outline: 2px solid var(--alm-link);
+  outline-offset: 2px;
+}
+
+/* Ubicaciones del hotel: solo el listado se desplaza. */
+.mnt-ubicaciones-body,
+.mnt-ubicaciones-panel {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+.mnt-ubicaciones-panel {
+  flex: 1;
+}
+.mnt-ubicaciones-filtros {
+  flex: none;
+  padding: .875rem clamp(.875rem, 2vw, 1.25rem);
+}
+.mnt-ubicaciones-listado {
+  min-height: 0;
+  overflow-y: auto;
+  padding: .875rem clamp(.875rem, 2vw, 1.25rem);
+}
+.mnt-ubicaciones-controles {
+  display: grid;
+  gap: .75rem 1.25rem;
+}
+.mnt-ubicaciones-controles label { min-width: 0; }
+.mnt-ubicaciones-controles :is(input, select) { margin-top: .6rem; }
+.mnt-ubicaciones-resumen,
+.mnt-ubicaciones-tarjetas,
+.mnt-ubicaciones-panel[data-busqueda-activa="true"] .mnt-ubicaciones-grupos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
+  gap: .65rem;
+}
+.mnt-ubicaciones-resumen { margin-bottom: 1.1rem; }
+.mnt-ubicaciones-resumen button {
+  width: 100%;
+  height: 100%;
+  min-height: 44px;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: .55rem;
+  padding: .6rem .75rem;
+  background: var(--alm-inset);
+  border: 1px solid var(--alm-border);
+  border-radius: .65rem;
+  font-size: .8125rem;
+  overflow-wrap: anywhere;
+}
+.mnt-ubicaciones-resumen strong { margin-inline-start: auto; }
+.mnt-ubicaciones-resumen button:hover,
+.mnt-ubicaciones-resumen button[aria-pressed="true"] { border-color: var(--alm-link); }
+.mnt-ubicaciones-grupos { display: grid; gap: .9rem; }
+.mnt-ubicaciones-grupo {
+  padding: .85rem;
+  background: var(--alm-inset);
+  border: 1px solid var(--alm-border);
+  border-radius: .9rem;
+}
+.mnt-ubicaciones-titulo {
+  display: flex;
+  align-items: center;
+  gap: .55rem;
+  margin-bottom: .65rem;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+.mnt-ubicaciones-titulo span {
+  padding: .1rem .45rem;
+  border-radius: 1rem;
+  background: var(--alm-surface);
+  color: var(--alm-muted);
+  font-size: .75rem;
+}
+.mnt-ubicacion-tarjeta {
+  display: flex;
+  align-items: center;
+  gap: .65rem;
+  min-height: 3.25rem;
+  padding: .55rem .75rem;
+  background: var(--alm-surface);
+  border: 1px solid var(--alm-border);
+  border-radius: .65rem;
+  font-size: .875rem;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+.mnt-ubicacion-icono {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: .55rem;
+  background: var(--alm-inset);
+}
+.mnt-ubicacion-tipo { display: none; color: var(--alm-muted); font-size: .75rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mnt-ubicaciones-panel[data-busqueda-activa="true"] .mnt-ubicacion-tipo { display: block; }
+.mnt-ubicaciones-mas {
+  min-height: 44px;
+  color: var(--alm-link);
+  font-size: .875rem;
+  font-weight: 700;
+  text-decoration: underline;
+}
+.mnt-ubicaciones-panel:not([data-busqueda-activa="true"]) .mnt-ubicaciones-grupo:not([data-expandido="true"]) [data-ubicacion-adicional],
+.mnt-ubicaciones-panel[data-busqueda-activa="true"] :is(.mnt-ubicaciones-resumen, .mnt-ubicaciones-titulo, .mnt-ubicaciones-mas) {
+  display: none;
+}
+.mnt-ubicaciones-panel[data-busqueda-activa="true"] :is(.mnt-ubicaciones-grupo, .mnt-ubicaciones-tarjetas) {
+  display: contents;
+}
+.mnt-ubicaciones-panel .mnt-ubicaciones-grupo[hidden] { display: none; }
+@media (min-width: 640px) {
+  .mnt-ubicaciones-controles { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); }
+}
+.mnt-ubicacion-tarjeta[hidden],
+.mnt-ubicaciones-mas[hidden] {
+  display: none;
+}
+.mnt-ubicacion-tarjeta p:first-child {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+/* 21F.10: estilos exclusivos de la ficha auditada. */
+.gestion-tarea-dialog {
+  margin: auto;
+  width: min(44rem, calc(100vw - 2rem));
+  max-height: calc(100dvh - 2rem);
+  overflow: auto;
+}
+.gestion-tarea-dialog::backdrop {
+  background: rgb(15 23 42 / 48%);
+  backdrop-filter: blur(5px);
+}
+.gestion-tarea-dialog :is(input, select, textarea),
+#tareas-pendientes [data-gestion-uuid] {
+  max-width: 100%;
+  background: var(--alm-inset);
+  color: var(--alm-text);
+  border: 1px solid var(--alm-border);
+  border-radius: .75rem;
+  padding: .5rem .75rem;
+}
+
+.gestion-trabajo-estado { display: inline-block; margin-inline-start: .25rem; padding: .1rem .45rem; border: 1px solid currentColor; border-radius: .5rem; font-weight: 600; }
+.gestion-trabajo-pendiente { color: var(--alm-muted); }
+.gestion-trabajo-en-proceso { color: #854d0e; background: #fef9c3; }
+.gestion-trabajo-completada { color: #166534; background: #dcfce7; }
+.gestion-trabajo-vencida { color: #991b1b; background: #fee2e2; }
+.dark .gestion-trabajo-en-proceso { color: #fde047; background: #422006; }
+.dark .gestion-trabajo-completada { color: #bbf7d0; background: #14532d; }
+.dark .gestion-trabajo-vencida { color: #fecaca; background: #7f1d1d; }
+
+#tareas-pendientes :is([data-gestion-reintentar], [data-gestion-reintentar-modal])[hidden] { display: none; }
+
+/* Fichas de personal: misma presentación con o sin cuenta. */
+#modal-trabajador-ficha .trabajador-ficha-shell {
+  max-width: 46rem;
+  height: min(44rem, calc(100vh - 2rem));
+  height: min(44rem, calc(100dvh - 2rem));
+  max-height: calc(100vh - 2rem);
+  max-height: calc(100dvh - 2rem);
+  overflow: hidden;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+}
+#trabajador-ficha-contenido {
+  height: 100%; min-height: 0;
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr);
+}
+.trabajadores-cuentas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+  gap: 1rem;
+}
+.trabajador-cuenta-card { display: flex; flex-direction: column; gap: .5rem; padding: 1rem; min-width: 0; overflow-wrap: anywhere; }
+.trabajador-cuenta-nombre { display: flex; align-items: flex-start; justify-content: space-between; gap: .5rem; }
+.trabajador-cuenta-nombre h4 { min-width: 0; }
+.trabajador-ficha-datos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin-top: 1rem; }
+.trabajador-ficha-datos > :is(div, section) { min-width: 0; }
+.trabajador-ficha-ancho { grid-column: 1 / -1; }
+.trabajador-ficha-datos dt, .trabajador-ficha-campo > span:first-child { display: block; margin-bottom: .35rem; color: var(--alm-muted); }
+.trabajador-ficha-datos dd { margin: 0; }
+.trabajador-ficha-campo > span:last-child { display: inline-block; text-align: start; max-width: 100%; white-space: normal; }
+.trabajador-cuenta-accion { display: flex; justify-content: flex-end; margin-top: auto; padding-top: .25rem; }
+.trabajador-ficha-tabs {
+  display: flex;
+  gap: .375rem;
+  margin-block: 1rem;
+  padding: .25rem;
+  border: 1px solid var(--alm-border);
+  border-radius: .75rem;
+  background: var(--alm-inset);
+}
+.trabajador-ficha-tabs [role="tab"] {
+  flex: 1;
+  min-width: 0;
+  border: 1px solid transparent;
+  border-radius: .5rem;
+  padding: .5rem .75rem;
+  color: var(--alm-muted);
+  font-size: .875rem;
+  font-weight: 600;
+  background: transparent;
+}
+.trabajador-ficha-tabs [aria-selected="true"] {
+  background: var(--alm-surface);
+  color: var(--alm-link);
+  border-color: var(--alm-border);
+}
+.trabajador-ficha-tabs [role="tab"]:focus-visible {
+  outline: 2px solid var(--alm-accent);
+  outline-offset: 2px;
+}
+.trabajador-ficha-panel { min-width: 0; min-height: 0; overflow-y: auto; overflow-wrap: anywhere; font-size: .875rem; padding-bottom: .5rem; }
+.trabajador-ficha-panel[hidden] { display: none !important; }
+.trabajador-ficha-panel .text-xs { font-size: .875rem; line-height: 1.5; }
+.trabajador-ficha-panel [class~="text-[10px]"] { font-size: .75rem; }
+.trabajador-ficha-panel [data-gestion-laboral-lista] {
+  max-height: 22rem;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+}
+.trabajador-trabajos-lista { display: grid; gap: .5rem; margin-block: .75rem; }
+.trabajador-ficha-panel .trabajador-trabajo-fila { padding: .65rem .8rem; border-radius: .75rem; }
+.trabajador-trabajos-paginacion { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .5rem; }
+.trabajador-observaciones summary { color: var(--alm-link); cursor: pointer; font-size: .875rem; }
+@media (max-width: 640px) {
+  .trabajador-ficha-tabs [role="tab"] { padding-inline: .5rem; }
+  .trabajador-ficha-datos { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* INV-22: diálogos administrativos, sin alterar otros modales. */
+#admin-invitacion-dialog, #admin-nuevo-usuario-dialog { width: min(32rem, calc(100% - 2rem)); max-height: 90vh; overflow-y: auto; overflow-wrap: anywhere; margin: auto; }
+#admin-nuevo-usuario-dialog fieldset:disabled { opacity: .65; }
+#admin-nuevo-usuario-dialog .admin-manual-password input { padding-right: 3rem; }
+#admin-nuevo-usuario-dialog .admin-manual-password button { min-width: 44px; justify-content: center; padding-right: 0; }
+#admin-nuevo-usuario-dialog #admin-manual-recuperar[hidden] { display: none; }
+#admin-invitacion-dialog :disabled, #admin-nuevo-usuario-dialog :disabled { cursor: not-allowed; }
+
+/* FIX-03: historial compacto, plegado y leyenda accesible. */
+.trabajador-historial-leyenda { display: flex; flex-wrap: wrap; gap: .4rem; margin-block: .5rem; }
+.trabajador-historial > summary { cursor: pointer; color: var(--alm-link); font-weight: 600; padding-block: .5rem; }
+
+/* FIX-04D: páginas de dos registros, sin desplazar un historial completo. */
+alm-historial-paginado { display: block; }
+alm-historial-paginado > :first-child > [hidden] { display: none !important; }
+.mnt-historial-paginacion { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .5rem; margin-top: .75rem; }
+.mnt-historial-paginacion button { padding: .4rem .75rem; }
+/* 375K.30E: cantidades por estado, compartidas por los calendarios mensuales. */
+:is(#tareas-pendientes, [data-calendario]) .tareas-calendario-indicadores { display:flex; flex-wrap:wrap; justify-content:center; gap:3px; max-width:100%; }
+:is(#tareas-pendientes, [data-calendario]) .tareas-calendario-cantidad { display:inline-flex; align-items:center; justify-content:center; min-width:1.4rem; min-height:1.4rem; padding:0 .2rem; border-radius:999px; font-size:.75rem; font-weight:800; line-height:1.4; font-variant-numeric:tabular-nums; }
+:is(#tareas-pendientes, [data-calendario], .gestion-tarea-tarjeta) .tarea-pendiente-plazo { background:#e2e8f0; color:#334155; }
+:is(#tareas-pendientes, [data-calendario], .gestion-tarea-tarjeta) .tarea-pendiente-proxima { background:#fef08a; color:#713f12; }
+:is(#tareas-pendientes, [data-calendario], .gestion-tarea-tarjeta) .tarea-completada { background:#bbf7d0; color:#14532d; }
+:is(#tareas-pendientes, [data-calendario], .gestion-tarea-tarjeta) .tarea-pendiente-vencida { background:#fecaca; color:#7f1d1d; }
+.dark :is(#tareas-pendientes, [data-calendario], .gestion-tarea-tarjeta) .tarea-pendiente-plazo { background:#334155; color:#f1f5f9; }
+.dark :is(#tareas-pendientes, [data-calendario], .gestion-tarea-tarjeta) .tarea-pendiente-proxima { background:#713f12; color:#fef08a; }
+.dark :is(#tareas-pendientes, [data-calendario], .gestion-tarea-tarjeta) .tarea-completada { background:#14532d; color:#bbf7d0; }
+.dark :is(#tareas-pendientes, [data-calendario], .gestion-tarea-tarjeta) .tarea-pendiente-vencida { background:#7f1d1d; color:#fecaca; }
+:is(#tareas-pendientes, [data-calendario]) .tareas-calendario-leyenda { display:flex; flex-wrap:wrap; gap:.35rem .8rem; font-size:.7rem; color:var(--alm-muted); }
+:is(#tareas-pendientes, [data-calendario]) .tareas-calendario-leyenda > span { display:inline-flex; align-items:center; gap:.3rem; }
+:is(#tareas-pendientes, [data-calendario]) .tareas-calendario-leyenda .tareas-calendario-cantidad { min-width:.65rem; width:.65rem; min-height:.65rem; height:.65rem; padding:0; }
+
+/* 375K.31C: carga inicial común; .hidden conserva el control de cada vista. */
+.alm-carga-inicial:not(.hidden){display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;min-height:16rem;padding:3rem 1rem;text-align:center;color:var(--alm-muted,#64748b);font-size:.875rem;font-weight:600;}
+.alm-carga-inicial-icono{display:inline-block;font-size:2.25rem;line-height:1.2;}
+
+.dark .alm-carga-inicial{color:var(--alm-muted,#a7b5c9);}
+
+/* 375K.33B: acción de avance completo; conserva el componente de botón. */
+.alm-ui .alm-btn-completar{background:#047857;color:#fff;border-color:#047857;}
+.alm-ui .alm-btn-completar:hover{background:#065f46;border-color:#065f46;}
+.dark .alm-ui .alm-btn-completar{background:#065f46;color:#ecfdf5;border-color:#059669;}
+.dark .alm-ui .alm-btn-completar:hover{background:#047857;}
+
+/* 375K.34B: cabecera/pestañas fijas y scroll únicamente en el panel del detalle. */
+.gestion-detalle-tabs[open]{overflow:hidden;}
+.gestion-detalle-tabs form{display:flex;flex-direction:column;height:min(78dvh,44rem);min-height:0;}
+.gestion-detalle-tabs form>h2{flex-shrink:0;overflow-wrap:anywhere;}
+.gestion-detalle-tabs [data-gestion-campos]{display:flex;flex:1;min-height:0;overflow:hidden;}
+.gestion-detalle-contenido{display:flex;flex-direction:column;min-height:0;width:100%;gap:.75rem;}
+.gestion-detalle-cabecera,.gestion-detalle-pestanas{flex-shrink:0;}
+.gestion-detalle-pestanas{overflow-x:auto;min-width:0;}
+.gestion-detalle-pestanas [role="tab"]{white-space:nowrap;}
+.gestion-detalle-panel{overflow-y:auto;min-height:0;overflow-wrap:anywhere;padding:.25rem;}
+.gestion-detalle-panel[hidden]{display:none!important;}
+.gestion-detalle-progreso{width:100%;height:.65rem;accent-color:#047857;}
+.dark .gestion-detalle-progreso{accent-color:#34d399;}
+
+/* 375K.34D: tarjetas y detalle compactos, sin afectar otros módulos. */
+.gestion-tarea-tarjeta .alm-title{font-size:.875rem;line-height:1.3;}
+.gestion-tarea-tarjeta .text-sm{font-size:.75rem;line-height:1.5;}
+.gestion-responsables-resumen{display:flex;align-items:center;gap:.4rem;min-width:0;}
+.gestion-responsable-nombre{min-width:0;max-width:45%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.gestion-responsables-adicionales{flex-shrink:0;white-space:nowrap;}
+.gestion-detalle-tabs #gestion-tarea-titulo{font-size:1rem;line-height:1.35;}
+.gestion-detalle-cabecera{font-size:.8rem;line-height:1.4;}
+.gestion-historial-fila{font-size:.8rem;line-height:1.4;}
+.gestion-historial-fila .alm-title{font-size:.8rem;}
+.gestion-historial-datos{white-space:pre-wrap;overflow-wrap:anywhere;font-size:.75rem;}
+.gestion-detalle-pie{justify-content:space-between;align-items:center;}
+.gestion-detalle-pie [type="submit"]{margin-left:auto;}
+
+.gestion-tarea-tarjeta .alm-title{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.gestion-tarea-tarjeta .text-sm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+
+/* 375K.34H: cabecera compacta y actividad sin datos técnicos. */
+.gestion-detalle-descripcion{max-height:4.5rem;overflow-y:auto;overflow-wrap:anywhere;}
+.gestion-detalle-pestanas [role="tab"]{font-size:.8rem;}
+.gestion-detalle-cabecera>p:not(.gestion-detalle-descripcion){font-weight:700;}
+
+/* 375K.34J: acciones de tarea separadas de las acciones individuales. */
+.gestion-tarea-acciones-secundarias{border-top:1px solid var(--alm-border);padding-top:.75rem;margin-top:.75rem;}
+.gestion-tarea-acciones-secundarias>.alm-title{font-size:.8rem;color:var(--alm-muted);}
+
+/* 375K.34L: espaciado común de tarjetas en ambos calendarios. */
+.alm-ui .gestion-tarea-tarjeta>div:first-child{display:flex;flex-direction:column;gap:7px;}
+
+/* 375K.34N: hidden del submit tiene prioridad incluso ante estilos de botones. */
+#tareas-pendientes .gestion-tarea-dialog [type="submit"][hidden]{display:none!important;}
+
+/* 375K.34Q: adaptación de la referencia sobre el diálogo existente; solo consulta. */
+#tareas-pendientes .gestion-tarea-dialog.gestion-detalle-tabs{width:min(49rem,calc(100vw - 2rem))!important;max-height:calc(100dvh - 1.5rem);padding:1.25rem;}
+.gestion-detalle-tabs form{height:auto;max-height:calc(100dvh - 4.5rem);gap:0;}
+.gestion-detalle-tabs form>*{margin-block:0!important;}
+.gestion-modal-titulo h2{min-width:0;overflow-wrap:anywhere;}
+.gestion-modal-titulo [hidden]{display:none!important;}
+.gestion-detalle-tabs .gestion-modal-titulo{position:relative;flex-shrink:0;padding:0 2rem .5rem 0;}
+#tareas-pendientes .gestion-detalle-tabs #gestion-tarea-titulo{font-size:1rem;line-height:1.4;font-weight:750;letter-spacing:-.015em;margin:0;}
+.gestion-modal-titulo-fila{display:flex;align-items:flex-start;gap:.75rem;}
+.gestion-modal-titulo-fila h2{flex:1;}
+.gestion-modal-cerrar-superior{position:absolute;right:-.4rem;top:-.4rem;width:40px;height:40px;display:flex;align-items:center;justify-content:center;border:0;border-radius:.6rem;color:var(--alm-muted);background:transparent;}
+.gestion-modal-cerrar-superior:hover{background:var(--alm-inset);color:var(--alm-text);}
+.gestion-modal-cerrar-superior:focus-visible{outline:2px solid var(--alm-link);outline-offset:2px;}
+.gestion-estado-insignia{display:inline-flex;font-size:.65rem;line-height:1.4;padding:.15rem .45rem;border-radius:999px;font-weight:750;margin-bottom:.75rem;text-transform:uppercase;}
+.gestion-detalle-tabs .gestion-detalle-contenido{gap:.75rem;}
+.gestion-detalle-tabs .gestion-detalle-descripcion{font-size:.8125rem;line-height:1.5;font-weight:400;margin:0;color:var(--alm-muted);}
+.gestion-progreso-bloque{display:flex;flex-direction:column;gap:.45rem;border-top:1px solid var(--alm-border);padding-top:1rem;margin-top:1rem;}
+.gestion-progreso-etiqueta{display:flex;justify-content:space-between;gap:1rem;font-size:.8125rem;font-weight:700;}
+.gestion-detalle-tabs .gestion-detalle-progreso{display:block;width:100%;height:.5rem;border:0;border-radius:999px;overflow:hidden;background:var(--alm-inset);accent-color:var(--alm-accent);}
+.gestion-detalle-progreso::-webkit-progress-bar{background:var(--alm-inset);border-radius:999px;}
+.gestion-detalle-progreso::-webkit-progress-value{background:var(--alm-accent);border-radius:999px;}
+.gestion-detalle-progreso::-moz-progress-bar{background:var(--alm-accent);border-radius:999px;}
+.gestion-fecha-tarjeta{display:flex;align-items:center;gap:.65rem;background:var(--alm-inset);border:1px solid var(--alm-border);border-radius:.65rem;padding:.75rem;margin-top:.75rem;}
+.gestion-fecha-tarjeta>svg{flex-shrink:0;color:var(--alm-link);}
+.gestion-fecha-etiqueta{font-size:.65rem;font-weight:500;text-transform:uppercase;color:var(--alm-muted);}
+.gestion-fecha-valor{font-size:.875rem;font-weight:750;margin-top:.15rem;}
+.gestion-fecha-contexto{margin-left:auto;max-width:50%;padding:.15rem .4rem;border-radius:999px;font-size:.65rem;font-weight:650;line-height:1.4;text-align:center;}
+.gestion-fecha-plazo,.gestion-fecha-neutra{background:#e2e8f0;color:#334155;}
+.gestion-fecha-proxima{background:#fef3c7;color:#92400e;}
+.gestion-fecha-vencida{background:#fee2e2;color:#991b1b;}
+.gestion-fecha-completada{background:#dcfce7;color:#166534;}
+.dark .gestion-fecha-plazo,.dark .gestion-fecha-neutra{background:#263449;color:#cbd5e1;}
+.dark .gestion-fecha-proxima{background:#422006;color:#fbbf24;}
+.dark .gestion-fecha-vencida{background:#450a0a;color:#fecaca;}
+.dark .gestion-fecha-completada{background:#14532d;color:#bbf7d0;}
+.gestion-detalle-tabs .gestion-detalle-pestanas{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.25rem;padding:0;border:0;border-bottom:1px solid var(--alm-border);background:transparent;border-radius:0;}
+.gestion-detalle-tabs .gestion-detalle-pestanas [role="tab"]{position:relative;display:flex;align-items:center;justify-content:center;gap:.4rem;min-width:0;min-height:36px;padding:.375rem .4rem;border:0;border-radius:0;box-shadow:none;font-size:.8rem;font-weight:500;text-align:center;color:var(--alm-muted);background:transparent;white-space:normal;line-height:1.25;}
+.gestion-detalle-tabs .gestion-detalle-pestanas [role="tab"][aria-selected="true"]{background:transparent;color:var(--alm-link);font-weight:600;}
+.gestion-detalle-tabs .gestion-detalle-panel{max-height:min(42dvh,28rem);padding:.1rem .1rem .25rem;}
+.gestion-responsables-cabecera{display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin-bottom:.5rem;}
+.gestion-responsables-cabecera h3{font-size:.8rem;font-weight:750;text-transform:uppercase;}
+.gestion-responsables-cabecera>div{display:flex;flex-wrap:wrap;gap:.4rem;justify-content:flex-end;}
+.gestion-responsables-cabecera [data-gestion-asignar]{padding:.35rem 0;min-height:40px;border:0;background:transparent;color:var(--alm-link);font-size:.8rem;}
+.gestion-detalle-tabs .gestion-responsable-tarjeta{border:1px solid var(--alm-border);border-radius:.75rem;background:var(--alm-surface);padding:.75rem;}
+.gestion-responsable-fila{display:flex;align-items:center;gap:.65rem;min-width:0;}
+.gestion-responsable-avatar{display:flex;align-items:center;justify-content:center;flex-shrink:0;width:38px;height:38px;border-radius:.6rem;background:#dbeafe;color:#1e40af;font-weight:800;font-size:.8rem;}
+.dark .gestion-responsable-avatar{background:#263c96;color:#f8fafc;}
+.gestion-responsable-datos{min-width:0;flex:1;}
+.gestion-detalle-tabs .gestion-responsable-titulo{font-size:.875rem;line-height:1.35;font-weight:750;overflow-wrap:anywhere;margin:0;}
+.gestion-responsable-avance{font-size:.75rem;line-height:1.4;margin-top:.25rem;}
+.gestion-responsable-estado{flex-shrink:0;max-width:7rem;font-size:.65rem;line-height:1.4;padding:.15rem .45rem;border-radius:999px;text-align:center;}
+.gestion-responsable-acciones{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.5rem;margin-top:.75rem;}
+.gestion-responsable-acciones>button{min-width:0;min-height:40px;padding:.5rem .25rem;font-size:.75rem;line-height:1.3;overflow-wrap:anywhere;}
+.gestion-responsable-acciones>button:nth-child(4),.gestion-responsable-acciones>button:only-child{grid-column:1/-1;}
+.gestion-detalle-tabs .gestion-tarea-acciones-secundarias{padding-top:1rem;margin-top:1rem;border-top:1px solid var(--alm-border);}
+.gestion-detalle-tabs .gestion-tarea-acciones-secundarias>.alm-title{font-size:.65rem;font-weight:750;text-transform:uppercase;color:var(--alm-muted);}
+.gestion-tarea-acciones-secundarias>div{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.5rem;}
+.gestion-tarea-acciones-secundarias button{display:flex;align-items:center;justify-content:center;gap:.4rem;min-width:0;font-size:.8rem;padding:.6rem;}
+.gestion-tarea-acciones-secundarias svg{flex-shrink:0;}
+.gestion-detalle-tabs .gestion-retirar-tarea{background:#fff1f2;color:#b91c1c;border-color:#fda4af;}
+.dark .gestion-detalle-tabs .gestion-retirar-tarea{background:#3b2028;color:#fda4af;border-color:#9f344a;}
+.gestion-detalle-tabs .gestion-detalle-pie{flex-shrink:0;border-top:1px solid var(--alm-border);padding-top:1rem;margin-top:1rem!important;}
+.gestion-detalle-tabs .gestion-detalle-pie [data-gestion-cerrar]{width:100%;display:flex;align-items:center;justify-content:center;min-height:44px;background:var(--alm-inset);font-weight:750;}
+.gestion-detalle-tabs [data-gestion-error]:not(:empty){padding-top:.65rem;font-size:.8rem;color:#b91c1c;}
+.dark .gestion-detalle-tabs [data-gestion-error]:not(:empty){color:#fca5a5;}
+@media(max-width:600px){
+ #tareas-pendientes .gestion-tarea-dialog.gestion-detalle-tabs{width:calc(100vw - 1rem)!important;padding:.9rem;}
+ .gestion-detalle-tabs .gestion-responsable-titulo{font-size:.8125rem;}
+ .gestion-detalle-tabs .gestion-responsable-acciones>button,.gestion-detalle-tabs .gestion-detalle-pestanas [role="tab"]{min-height:44px;}
+ .gestion-responsable-estado{max-width:5.5rem;}
+ .gestion-fecha-tarjeta{padding:.6rem;}
+}
+@media(max-height:600px){
+ .gestion-detalle-tabs [data-gestion-campos]{display:block;overflow-y:auto;flex:1 1 auto;}
+ .gestion-detalle-tabs .gestion-detalle-contenido{display:block;}
+ .gestion-detalle-tabs .gestion-detalle-panel{max-height:32dvh;overflow-y:auto;}
+ .gestion-detalle-tabs .gestion-detalle-pestanas{margin-block:.75rem;}
+}
+
+.gestion-detalle-tabs .gestion-modal-titulo{padding-right:2.75rem;}
+@media(max-width:600px){.gestion-modal-cerrar-superior{width:44px;height:44px;}}
+
+.gestion-tarea-acciones-secundarias button:only-child{grid-column:1/-1;}
+
+/* 375K.34T: navegación minimalista, distinta de las acciones operativas. */
+.gestion-detalle-tabs .gestion-detalle-pestanas [role="tab"][aria-selected="true"]::after{content:"";position:absolute;left:.35rem;right:.35rem;bottom:0;height:3px;background:var(--alm-link);border-radius:2px 2px 0 0;pointer-events:none;}
+.gestion-detalle-tabs .gestion-detalle-pestanas [role="tab"]:focus-visible{outline:2px solid var(--alm-link);outline-offset:-3px;}
+.gestion-detalle-pestanas svg{width:16px;height:16px;flex-shrink:0;}
+.gestion-detalle-pestanas [role="tab"]>span{min-width:0;overflow-wrap:anywhere;}
+@media(pointer:coarse){.gestion-detalle-tabs .gestion-detalle-pestanas [role="tab"]{min-height:44px;}}
+
+/* 375K.34V: retiro de asignación compacto junto al estado, sin fila adicional. */
+.gestion-responsable-estado-acciones{display:flex;align-items:center;gap:.35rem;flex-shrink:0;}
+.gestion-detalle-tabs .gestion-retirar-asignacion{display:inline-flex;align-items:center;justify-content:center;gap:.25rem;width:36px;min-height:36px;padding:.35rem;border:1px solid var(--alm-border);border-radius:.5rem;background:transparent;color:#92400e;}
+.gestion-detalle-tabs .gestion-retirar-asignacion:hover{background:#fef3c7;border-color:#d97706;}
+.dark .gestion-detalle-tabs .gestion-retirar-asignacion{color:#fbbf24;}
+.dark .gestion-detalle-tabs .gestion-retirar-asignacion:hover{background:#422006;border-color:#b45309;}
+.gestion-retirar-asignacion:focus-visible{outline:2px solid var(--alm-link);outline-offset:2px;}
+.gestion-retirar-asignacion svg{flex-shrink:0;}
+.gestion-retirar-asignacion-texto{display:none;}
+.gestion-detalle-tabs .gestion-tarea-acciones-secundarias{padding-top:.65rem;margin-top:.65rem;}
+.gestion-detalle-tabs .gestion-tarea-acciones-secundarias button{padding:.4rem .6rem;min-height:40px;}
+@media(max-width:600px),(pointer:coarse){
+ .gestion-responsable-estado-acciones{flex-direction:column;align-items:flex-end;gap:.2rem;}
+ .gestion-detalle-tabs .gestion-retirar-asignacion{width:auto;min-height:44px;padding:.35rem .5rem;font-size:.7rem;}
+ .gestion-retirar-asignacion-texto{display:inline;}
+ .gestion-detalle-tabs .gestion-tarea-acciones-secundarias button{min-height:44px;}
+}
+
+/* 375K.34Y: acciones globales junto a X; sin bloque inferior. */
+.gestion-modal-controles{display:contents;}
+[data-gestion-globales-fuente][hidden]{display:none!important;}
+.gestion-detalle-tabs .gestion-modal-titulo{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:.75rem;row-gap:.25rem;padding:0 0 .5rem;}
+.gestion-detalle-tabs [data-gestion-estado-cabecera]{grid-column:1;grid-row:1;align-self:center;}
+.gestion-detalle-tabs .gestion-estado-insignia{margin-bottom:0;}
+.gestion-detalle-tabs .gestion-modal-titulo-fila{display:contents;}
+.gestion-detalle-tabs #gestion-tarea-titulo{grid-column:1/-1;grid-row:2;}
+.gestion-detalle-tabs .gestion-modal-controles{display:flex;align-items:center;justify-content:flex-end;gap:.4rem;grid-column:2;grid-row:1;min-width:0;}
+.gestion-detalle-tabs .gestion-modal-cerrar-superior{position:static;flex-shrink:0;}
+.gestion-acciones-globales{display:flex;align-items:center;gap:.4rem;min-width:0;}
+.gestion-acciones-globales button{display:flex;align-items:center;justify-content:center;gap:.35rem;min-height:36px;padding:.35rem .5rem;font-size:.75rem;white-space:nowrap;}
+.gestion-acciones-globales svg{flex-shrink:0;}
+.gestion-acciones-globales button:focus-visible{outline:2px solid var(--alm-link);outline-offset:2px;}
+@media(max-width:600px),(pointer:coarse){
+ .gestion-detalle-tabs .gestion-modal-titulo{column-gap:.4rem;}
+ .gestion-acciones-globales button{width:44px;min-width:44px;min-height:44px;padding:.4rem;}
+ .gestion-acciones-globales button>span{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;}
+ .gestion-detalle-tabs .gestion-modal-cerrar-superior{width:44px;height:44px;}
+}
+
+.gestion-detalle-tabs [data-gestion-estado-cabecera]{min-width:0;}
+.gestion-detalle-tabs .gestion-estado-insignia{max-width:100%;overflow-wrap:anywhere;}
+
+/* 375K.38K: confirmación secundaria y toast personal sin bloquear la página. */
+.solicitudes-rechazo-dialog{width:calc(100% - 2rem);max-width:28rem;max-height:85dvh;overflow-y:auto;margin:auto;padding:1.25rem;border:1px solid var(--alm-border);border-radius:1rem;background:var(--alm-surface);color:var(--alm-text);}
+.solicitudes-rechazo-dialog::backdrop{background:rgba(2,6,23,.65);backdrop-filter:blur(3px);}
+#revision-solicitud-aviso.alm-revision-toast{position:fixed;right:16px;bottom:16px;z-index:60;width:360px;max-width:calc(100vw - 32px);padding:12px 14px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;border:1px solid #15803d;border-left:4px solid #15803d;border-radius:12px;background:#f0fdf4;color:#14532d;box-shadow:0 8px 24px rgba(0,0,0,.16);overflow-wrap:anywhere;}
+.alm-revision-toast p{margin-top:4px;font-size:.85rem;}.alm-revision-toast [data-revision-cerrar]{min-width:44px;min-height:44px;align-self:start;border-radius:8px;}.alm-revision-toast [data-revision-consultar]{justify-self:start;min-height:36px;font-size:.8rem;}.alm-revision-toast button:focus-visible{outline:2px solid var(--alm-link,#2563eb);outline-offset:2px;}
+#revision-solicitud-aviso.alm-revision-toast-rechazo{background:#fef2f2;color:#7f1d1d;border-color:#b91c1c;}
+.dark #revision-solicitud-aviso.alm-revision-toast{background:#052e16;color:#dcfce7;border-color:#4ade80;}
+.dark #revision-solicitud-aviso.alm-revision-toast-rechazo{background:#450a0a;color:#fee2e2;border-color:#f87171;}
+@media(max-width:480px){#revision-solicitud-aviso.alm-revision-toast{right:12px;bottom:12px;max-width:calc(100vw - 24px);}.alm-revision-toast [data-revision-consultar]{min-height:44px;}}
+
+.alm-revision-toast .alm-muted{color:inherit;opacity:.88;}
+
+/* 375K.38L: ficha Reactiva compacta; una zona de scroll, operaciones intactas. */
+#reactiva-ficha-modal{backdrop-filter:blur(3px);}
+#reactiva-ficha-modal .reactiva-ficha-panel{width:min(100%,49rem);max-height:90vh;max-height:90dvh;min-height:0;display:flex;flex-direction:column;overflow:hidden;}
+#reactiva-ficha-modal .reactiva-ficha-contenido{flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:16px;}
+#reactiva-ficha-modal .reactiva-resumen{display:grid;gap:8px;padding-bottom:12px;}
+#reactiva-ficha-modal .reactiva-resumen h3{font-size:1.05rem;line-height:1.35;font-weight:700;overflow-wrap:anywhere;}
+#reactiva-ficha-modal .reactiva-ubicacion{font-size:.85rem;color:var(--alm-muted);overflow-wrap:anywhere;}
+#reactiva-ficha-modal .reactiva-estado{justify-self:start;padding:3px 9px;border-radius:999px;font-size:.7rem;line-height:1.4;font-weight:650;background:var(--alm-inset);color:var(--alm-text);}
+#reactiva-ficha-modal .reactiva-estado-proceso{background:#fef3c7;color:#92400e;}#reactiva-ficha-modal .reactiva-estado-resuelta,#reactiva-ficha-modal .reactiva-estado-cerrada{background:#dcfce7;color:#166534;}
+.dark #reactiva-ficha-modal .reactiva-estado-proceso{background:#422006;color:#fde68a;}.dark #reactiva-ficha-modal .reactiva-estado-resuelta,.dark #reactiva-ficha-modal .reactiva-estado-cerrada{background:#052e16;color:#bbf7d0;}
+#reactiva-ficha-modal .reactiva-meta,#reactiva-ficha-modal .reactiva-datos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 16px;}
+#reactiva-ficha-modal .reactiva-meta dt,#reactiva-ficha-modal .reactiva-datos dt{font-size:.7rem;font-weight:650;color:var(--alm-muted);}
+#reactiva-ficha-modal .reactiva-meta dd,#reactiva-ficha-modal .reactiva-datos dd{margin-top:3px;font-size:.85rem;white-space:pre-wrap;overflow-wrap:anywhere;}
+#reactiva-ficha-modal .reactiva-descripcion{padding:10px 12px;background:var(--alm-inset);border:1px solid var(--alm-border);border-radius:10px;font-size:.85rem;line-height:1.5;white-space:pre-wrap;overflow-wrap:anywhere;}
+#reactiva-ficha-modal .reactiva-ficha-tabs{display:flex;gap:8px;border-bottom:1px solid var(--alm-border);margin-bottom:12px;}
+#reactiva-ficha-modal .reactiva-ficha-tabs button{flex:1;min-width:0;min-height:44px;padding:8px 6px;font-size:.82rem;background:transparent;color:var(--alm-muted);border:0;border-bottom:2px solid transparent;border-radius:0;}
+#reactiva-ficha-modal .reactiva-ficha-tabs button[aria-selected="true"]{border-bottom-color:var(--alm-link,#2563eb);color:var(--alm-link,#2563eb);font-weight:600;}
+#reactiva-ficha-modal button:focus-visible{outline:2px solid var(--alm-link,#2563eb);outline-offset:2px;}
+#reactiva-ficha-modal [data-reactiva-panel][hidden],#reactiva-ficha-modal [data-reactiva-paso][hidden]{display:none!important;}
+#reactiva-ficha-modal .reactiva-gestion{display:grid;gap:12px;}
+#reactiva-ficha-modal .reactiva-gestion-bloque{border:1px solid var(--alm-border);border-radius:10px;padding:12px;background:var(--alm-inset);}
+#reactiva-ficha-modal .reactiva-gestion-bloque h3,#reactiva-ficha-modal .reactiva-fechas h3{font-size:.85rem;font-weight:650;margin-bottom:8px;}
+#reactiva-ficha-modal [data-reactiva-asignar]{color:var(--alm-link,#2563eb);min-height:40px;text-align:left;}
+#reactiva-ficha-modal .reactiva-asignacion-form{padding-top:4px;}
+#reactiva-ficha-modal .reactiva-asignacion-form textarea{min-height:64px;}
+#reactiva-ficha-modal .reactiva-ayuda{font-size:.75rem;color:var(--alm-muted);margin-top:8px;}
+#reactiva-ficha-modal .reactiva-registro-trabajo{grid-template-columns:minmax(0,1fr);padding:10px 0;}
+#reactiva-ficha-modal .reactiva-fechas{border-top:1px solid var(--alm-border);padding-top:10px;}
+#reactiva-ficha-modal .reactiva-linea-tiempo{list-style:none;margin:0 0 0 5px;padding:0 0 0 16px;border-left:1px solid var(--alm-border);}
+#reactiva-ficha-modal .reactiva-linea-tiempo>li{padding-bottom:12px!important;overflow-wrap:anywhere;}
+@media(max-width:480px){#reactiva-ficha-modal .reactiva-ficha-contenido{padding:12px;}#reactiva-ficha-modal .reactiva-meta,#reactiva-ficha-modal .reactiva-datos{gap:10px;}#reactiva-ficha-modal .reactiva-gestion-bloque{padding:10px;}#reactiva-ficha-modal [data-reactiva-asignar]{min-height:44px;}}
+
+/* 375K.38L.2: descripción en Solicitud y motivo condicional, sin alterar el contrato. */
+#reactiva-panel-solicitud .reactiva-datos>div:first-child,#reactiva-panel-solicitud .reactiva-datos>div:nth-child(3){grid-column:1/-1;}
+#reactiva-ficha-modal [data-reactiva-motivo-grupo][hidden],#reactiva-ficha-modal [data-reactiva-motivo-limite][hidden],#reactiva-ficha-modal [data-reactiva-motivo][hidden],#reactiva-ficha-modal .reactiva-gestion-bloque[hidden]{display:none!important;}
+
+/* 375K.38L.4: jerarquía de metadatos y ayudas contextuales; sin nuevas operaciones. */
+#reactiva-ficha-modal .reactiva-resumen h3{font-size:1.12rem;line-height:1.35;}
+#reactiva-ficha-modal .reactiva-ubicacion{display:flex;align-items:flex-start;gap:6px;}
+#reactiva-ficha-modal .reactiva-ubicacion svg{flex-shrink:0;margin-top:2px;}
+#reactiva-ficha-modal .reactiva-meta{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;}
+#reactiva-ficha-modal .reactiva-meta-item{min-width:0;padding:8px 10px;border:1px solid var(--alm-border);border-radius:9px;background:var(--alm-inset);}
+#reactiva-ficha-modal .reactiva-meta-item dt{display:flex;align-items:center;gap:6px;font-size:.68rem;}
+#reactiva-ficha-modal .reactiva-meta-item dt svg{flex-shrink:0;}
+#reactiva-ficha-modal .reactiva-meta-item dd{margin-top:5px;font-size:.82rem;line-height:1.4;}
+#reactiva-ficha-modal .reactiva-urgencia-alta{display:inline-block;padding:2px 6px;border-radius:6px;background:#fef2f2;color:#b91c1c;font-weight:650;}
+.dark #reactiva-ficha-modal .reactiva-urgencia-alta{background:#450a0a;color:#fecaca;}
+#reactiva-ficha-modal [data-reactiva-refrescar][hidden]{display:none!important;}
+#reactiva-ficha-modal [data-reactiva-trabajadores-estado]:empty,#reactiva-ficha-modal [data-reactiva-gestion-mensaje]:empty,#reactiva-ficha-modal [data-reactiva-estado-mensaje]:empty{display:none;}
+@media(max-width:480px){#reactiva-ficha-modal .reactiva-meta-item{padding:8px;}#reactiva-ficha-modal .reactiva-meta-item dd{font-size:.8rem;}}
+
+/* 375K.38L.7: flecha accesible dentro del selector buscable de responsable. */
+#reactiva-ficha-modal .reactiva-selector-control{position:relative;margin-top:4px;}
+#reactiva-ficha-modal .reactiva-selector-control input{margin-top:0;padding-right:48px;min-height:44px;}
+#reactiva-ficha-modal [data-reactiva-desplegar]{position:absolute;right:1px;top:0;bottom:0;width:44px;border:0;display:flex;align-items:center;justify-content:center;color:var(--alm-text);border-radius:0 10px 10px 0;background:transparent;}
+#reactiva-ficha-modal [data-reactiva-desplegar] svg{width:20px;height:20px;}
+#reactiva-ficha-modal [data-reactiva-desplegar][aria-expanded="true"] svg{transform:rotate(180deg);}
+
+/* 375K.38M.6: acciones compactas y tarjetas finalizadas alineadas. */
+#reactiva-ficha-modal .reactiva-cambiar-responsable{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;font-size:.82rem;line-height:1.3;}
+#reactiva-ficha-modal [data-reactiva-asignacion-bloque] h3{margin-bottom:0;}
+#reactiva-ficha-modal [data-reactiva-asignacion-resumen]:not([hidden]){margin-top:6px;}
+#reactiva-ficha-modal [data-reactiva-asignacion-bloque][hidden],#reactiva-ficha-modal [data-reactiva-asignacion-resumen][hidden]{display:none!important;}
+#reactiva-vista .reactiva-finalizada{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:12px;padding:16px;}
+#reactiva-vista .reactiva-finalizada>button:last-child{margin:0;padding:8px 12px;min-height:44px;align-self:center;justify-self:end;white-space:nowrap;}
+@media(max-width:640px){#reactiva-vista .reactiva-finalizada{grid-template-columns:minmax(0,1fr) auto;}#reactiva-vista .reactiva-finalizada>div:first-child{grid-column:1/-1;}#reactiva-vista .reactiva-finalizada>span{justify-self:start;}}
+
+/* 375K.38O.2: acciones y lectura de notificaciones personales. */
+#topbar-notif-list .revision-notificacion-pendiente{border-left:3px solid var(--alm-link,#2563eb)!important;background:var(--alm-inset);}
+#topbar-notif-list .revision-notificacion-leida{background:var(--alm-surface);}
+#topbar-notif-list .revision-notificacion-lectura{display:inline-block;font-size:.7rem;font-weight:600;color:var(--alm-muted);}
+#topbar-notif-list .revision-notificacion-pendiente .revision-notificacion-lectura{color:var(--alm-link,#2563eb);}
+#topbar-notif-list .revision-notificacion-accion{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:6px 9px;font-size:.75rem;min-height:36px;max-width:100%;white-space:normal;}
+#topbar-notif-list .revision-notificacion-accion svg{flex-shrink:0;}
+@media(max-width:640px){#topbar-notif-list .revision-notificacion-accion{min-height:44px;}}
+
+/* 375K.38O.3: acciones personales en una fila, con adaptación estrecha. */
+#topbar-notif-list .revision-notificacion-acciones{display:flex;align-items:center;flex-wrap:nowrap;gap:6px;min-width:0;}
+#topbar-notif-list .revision-notificacion-acciones .revision-notificacion-accion{flex:0 1 auto;min-width:0;padding:6px 8px;font-size:.72rem;}
+#topbar-notif-list .revision-notificacion-acciones .revision-notificacion-accion span{min-width:0;overflow-wrap:anywhere;}
+@media(max-width:360px){#topbar-notif-list .revision-notificacion-acciones{flex-wrap:wrap;}}
+
+/* 375K.38Q.3: validación progresiva de Nueva solicitud, sin alterar otros formularios. */
+.alm-ui .alm-solicitud-error{color:#b91c1c;overflow-wrap:anywhere;}
+.dark .alm-ui .alm-solicitud-error{color:#fca5a5;}

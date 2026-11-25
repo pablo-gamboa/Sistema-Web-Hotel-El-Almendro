@@ -1,16 +1,6 @@
 # Sistema de Gestión Hotelera - Hotel & Centro de Eventos El Almendro
 
-Plataforma web full stack orientada a centralizar y digitalizar los procesos operativos de un hotel y centro de eventos, reemplazando registros dispersos en planillas Excel. Desarrollada a partir de requerimientos reales del cliente.
-
-## Funcionalidades
-
-- Panel de gestión operativa e indicadores.
-- Mantenciones preventivas y reactivas.
-- Inventario, activos y áreas.
-- Proyectos, mejoras y remodelaciones.
-- Solicitudes, tareas, calendario y carta Gantt.
-- Gestión de trabajadores y documentación.
-- Autenticación, roles, permisos y trazabilidad de actividades.
+Plataforma web full stack para centralizar y digitalizar los procesos operativos de un hotel y centro de eventos, reemplazando registros dispersos en planillas Excel. Desarrollada a partir de requerimientos reales del cliente.
 
 ## Mi participación
 
@@ -21,13 +11,21 @@ Plataforma web full stack orientada a centralizar y digitalizar los procesos ope
 - Levantamiento de requerimientos con usuarios del hotel.
 - Coordinación del equipo mediante Scrum y Jira; despliegue en Vercel.
 
-## Tecnologías
+## Funcionalidades del sistema original
+
+- Dashboard e indicadores, mantenciones generales y reactivas.
+- Inventario, activos, proyectos, mejoras y remodelaciones.
+- Solicitudes, tareas, calendario y carta Gantt.
+- Gestión de trabajadores y documentación.
+- Autenticación, roles, permisos y trazabilidad de actividades.
+
+## Tecnologías del sistema original
 
 HTML, CSS, JavaScript, Tailwind CSS, TypeScript, PostgreSQL, Supabase, Vercel, GitHub y Jira.
 
 ## Arquitectura
 
-El sistema se organiza en una arquitectura de tres capas, con separación de responsabilidades entre la interfaz, la lógica de negocio y la persistencia de datos.
+El sistema original utiliza una arquitectura de tres capas, separando presentación, negocio y persistencia de datos.
 
 | Capa | Tecnologías | Responsabilidad |
 | --- | --- | --- |
@@ -35,48 +33,47 @@ El sistema se organiza en una arquitectura de tres capas, con separación de res
 | Negocio | Supabase, funciones RPC, Auth, API y Mailjet SMTP | Lógica de negocio, autenticación y servicio de correo. |
 | Datos | PostgreSQL, Row Level Security (RLS) y Supabase Storage | Persistencia, almacenamiento de archivos y protección de datos. |
 
-## Seguridad y calidad
+## Seguridad y calidad del sistema original
 
 - Autenticación mediante Supabase Auth y control de acceso por roles.
-- Políticas RLS para restringir el acceso a registros en PostgreSQL.
-- Organización modular del código para facilitar su mantenimiento.
-- Seguimiento de estados, responsables e historial de actividades.
-
-## Estado del sistema
-
-Aplicación web desplegada y en validación con el cliente, con funcionalidades integradas y orientadas a sus procesos operativos reales.
+- Políticas RLS para restringir acceso a registros en PostgreSQL.
+- Organización modular del código y seguimiento de estados e historial de actividades.
 
 ## Demostración de portafolio
 
-Este repositorio contiene una adaptación visual independiente del sistema original. Incluye un componente de calendario del proyecto y una interfaz de demostración reconstruida con datos completamente ficticios. No es una copia completa del código de producción ni una implementación del backend original.
+Esta versión utiliza el HTML, los estilos CSS y Tailwind y componentes de presentación del frontend original, adaptados a un entorno independiente. Conserva el diseño original del menú, dashboard y gestión de tareas, con tema oscuro y claro. Los datos son ficticios y permanecen solo en memoria.
+
+| Vista | Funcionalidades de demostración |
+| --- | --- |
+| Dashboard | Indicadores ficticios y calendario de actividades. |
+| Gestión de tareas | Calendario, filtros, creación de tareas, responsables ficticios y fichas de seguimiento. |
+| Carta Gantt | Visualización de fechas y avances simulados. |
+| Mejoras y obras | Listado, fichas de proyectos y Gantt. |
+| Remodelaciones | Tarjetas de proyectos y cambio de estado en memoria; ficha simplificada. |
+| Inventario | Catálogo, búsqueda y filtro por bodega; ficha simplificada de solo lectura. |
+
+Las demás pantallas y operaciones del sistema original no están incluidas en esta demostración. No es una copia completa de producción.
 
 ### Ejecutar localmente
 
-1. Clonar o descargar el repositorio.
-2. Desde la raíz, ejecutar `python -m http.server 8000 --directory frontend`.
-3. Abrir `http://localhost:8000` en el navegador.
+1. Descargar el repositorio desde **Code > Download ZIP** y descomprimirlo.
+2. Abrir la carpeta del proyecto y escribir `cmd` en la barra de direcciones del Explorador de Windows.
+3. Ejecutar `python -m http.server 8000 --bind 127.0.0.1 --directory frontend` (o `py -m http.server 8000 --bind 127.0.0.1 --directory frontend`).
+4. Abrir `http://localhost:8000` en el navegador.
+5. Navegar por las vistas, crear una tarea ficticia, consultar una ficha de proyecto y filtrar productos del inventario.
+6. Recargar la página para descartar cambios simulados. Detener el servidor con Ctrl+C.
 
-La demostración permite consultar indicadores, navegar por módulos, buscar, filtrar, crear, editar y eliminar registros ficticios, y consultar actividades en el calendario. Los cambios permanecen solo en memoria hasta recargar la página. No requiere credenciales ni servicios externos.
+No requiere instalar paquetes ni configurar una cuenta de Supabase. No introducir datos personales o empresariales reales.
 
 ### Privacidad y alcance
 
-- No contiene datos del hotel, cuentas reales, conexiones a producción ni secretos.
-- La política CSP impide las conexiones de red iniciadas por la aplicación.
-- El backend, esquema de producción, documentación interna y funciones de administración reales se excluyen deliberadamente.
-- Las funciones de seguridad y arquitectura descritas anteriormente corresponden al sistema original, no a la demostración local.
-- Proyecto original desarrollado en equipo. La demostración reconstruida con asistencia de IA no sustituye la autoría ni el código original. Compartir el código del sistema original requiere autorización de sus titulares.
+- La demo no carga el cliente de Supabase ni utiliza su backend, cuentas, registros o configuración de producción.
+- Los servicios de demostración son locales y trabajan con objetos ficticios en memoria.
+- Una política CSP bloquea las conexiones de red iniciadas por la aplicación y el envío de formularios externos. Los manejadores inline de la interfaz original se conservan para esta demo; no es una configuración recomendada para producción.
+- Se excluyen el backend, el esquema SQL, la documentación interna, el historial Git original y las funciones administrativas reales. Se desactiva la fuente tipográfica externa.
+- La arquitectura y la seguridad de la sección anterior describen el sistema original, no una autenticación o autorización activa en esta demo.
+- El proyecto original fue desarrollado en equipo. La adaptación de portafolio fue asistida por IA; su redistribución requiere la autorización correspondiente.
 
-## Guía de evaluación técnica
+### Validación de la adaptación
 
-Para revisar la demostración en Windows:
-
-1. Descargar el ZIP desde Code > Download ZIP y descomprimirlo.
-2. Abrir la carpeta del proyecto y escribir `cmd` en la barra de direcciones del Explorador.
-3. Ejecutar `python -m http.server 8000 --directory frontend` (alternativamente, `py -m http.server 8000 --directory frontend`).
-4. Abrir `http://localhost:8000` en el navegador.
-5. Recorrer los módulos, crear un registro ficticio, editar su estado, buscarlo, filtrarlo y eliminarlo.
-6. Volver al dashboard y revisar los indicadores y la navegación del calendario.
-7. Restablecer la demostración o recargar la página; los cambios de la sesión se descartan.
-8. Detener el servidor con Ctrl+C.
-
-La revisión puede realizarse sin credenciales. No introducir información personal o empresarial real. La demostración no representa la totalidad de las funcionalidades del sistema original.
+Se verificó la sintaxis de los archivos JavaScript y se realizó una prueba de navegador en memoria con las seis vistas, apertura de fichas, creación de una tarea, Gantt, cambio de estado y filtro de inventario, sin errores JavaScript ni solicitudes externas observadas. La prueba utilizó recursos locales insertados en el navegador, no el despliegue real. La aplicación completa de producción no fue auditada.
