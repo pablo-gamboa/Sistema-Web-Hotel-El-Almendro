@@ -27,7 +27,35 @@ HTML, CSS, JavaScript, Tailwind CSS, TypeScript, PostgreSQL, Supabase, Vercel, G
 
 ## Arquitectura
 
-El sistema utiliza un frontend web con vistas, componentes y servicios separados, y un backend basado en PostgreSQL, Supabase Auth y Edge Functions.
+El sistema se organiza en una arquitectura de tres capas, con separación de responsabilidades entre la interfaz, la lógica de negocio y la persistencia de datos.
+
+| Capa | Tecnologías | Responsabilidad |
+| --- | --- | --- |
+| Presentación | HTML, CSS, JavaScript, Vercel | Interfaz web para administradores, técnicos y recepción. |
+| Negocio | Supabase, funciones RPC, Auth/API, Mailjet SMTP | Reglas de negocio, autenticación y servicio de correo. |
+| Datos | PostgreSQL, Row Level Security (RLS), Supabase Storage | Persistencia, almacenamiento de archivos y protección de datos. |
+
+```mermaid
+flowchart TD
+    U["Usuarios: Administrador, Técnico y Recepción"]
+    P["Presentación: HTML, CSS, JavaScript / Vercel"]
+    N["Negocio: Supabase / RPC / Auth / API / Mailjet SMTP"]
+    D["Datos: PostgreSQL / RLS / Storage"]
+    U <--> P
+    P <--> N
+    N <--> D
+```
+
+## Seguridad y calidad
+
+- Autenticación mediante Supabase Auth y control de acceso por roles.
+- Políticas RLS para restringir el acceso a registros en PostgreSQL.
+- Organización modular del código para facilitar su mantenimiento.
+- Seguimiento de estados, responsables e historial de actividades.
+
+## Estado del sistema
+
+Aplicación web desplegada y en validación con el cliente, con funcionalidades integradas y orientadas a sus procesos operativos reales.
 
 ## Estado del repositorio
 
