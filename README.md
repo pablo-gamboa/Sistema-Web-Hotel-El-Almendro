@@ -1,4 +1,4 @@
-# Sistema de Gestión Hotelera — Hotel & Centro de Eventos El Almendro
+# Sistema de Gestión Hotelera - Hotel & Centro de Eventos El Almendro
 
 Plataforma web full stack orientada a centralizar y digitalizar los procesos operativos de un hotel y centro de eventos, reemplazando registros dispersos en planillas Excel. Desarrollada a partir de requerimientos reales del cliente.
 
@@ -14,7 +14,7 @@ Plataforma web full stack orientada a centralizar y digitalizar los procesos ope
 
 ## Mi participación
 
-**Pablo Gamboa — Desarrollador Full Stack y Scrum Master**
+**Pablo Gamboa - Desarrollador Full Stack y Scrum Master**
 
 - Diseño de interfaces, estructura de base de datos y lógica de negocio.
 - Implementación de módulos operativos y mecanismos de control de acceso.
