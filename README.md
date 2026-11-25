@@ -66,3 +66,17 @@ La demostración permite consultar indicadores, navegar por módulos, buscar, fi
 - Las funciones de seguridad y arquitectura descritas anteriormente corresponden al sistema original, no a la demostración local.
 - Proyecto original desarrollado en equipo. La demostración reconstruida con asistencia de IA no sustituye la autoría ni el código original. Compartir el código del sistema original requiere autorización de sus titulares.
 
+## Guía de evaluación técnica
+
+Para revisar la demostración en Windows:
+
+1. Descargar el ZIP desde Code > Download ZIP y descomprimirlo.
+2. Abrir la carpeta del proyecto y escribir `cmd` en la barra de direcciones del Explorador.
+3. Ejecutar `python -m http.server 8000 --directory frontend` (alternativamente, `py -m http.server 8000 --directory frontend`).
+4. Abrir `http://localhost:8000` en el navegador.
+5. Recorrer los módulos, crear un registro ficticio, editar su estado, buscarlo, filtrarlo y eliminarlo.
+6. Volver al dashboard y revisar los indicadores y la navegación del calendario.
+7. Restablecer la demostración o recargar la página; los cambios de la sesión se descartan.
+8. Detener el servidor con Ctrl+C.
+
+La revisión puede realizarse sin credenciales. No introducir información personal o empresarial real. La demostración no representa la totalidad de las funcionalidades del sistema original.
