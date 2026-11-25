@@ -46,8 +46,23 @@ El sistema se organiza en una arquitectura de tres capas, con separación de res
 
 Aplicación web desplegada y en validación con el cliente, con funcionalidades integradas y orientadas a sus procesos operativos reales.
 
-## Estado del repositorio
+## Demostración de portafolio
 
-Presentación inicial de portafolio. El código fuente y las instrucciones de instalación completas aún no se han incorporado. La revisión de privacidad, configuración y dependencias debe completarse antes de distribuir una copia del sistema. No se incluyen credenciales ni datos de producción en esta presentación.
+Este repositorio contiene una adaptación visual independiente del sistema original. Incluye un componente de calendario del proyecto y una interfaz de demostración reconstruida con datos completamente ficticios. No es una copia completa del código de producción ni una implementación del backend original.
 
-Proyecto desarrollado en equipo. Esta descripción identifica las contribuciones personales indicadas por el autor y no concede derechos de redistribución del código original.
+### Ejecutar localmente
+
+1. Clonar o descargar el repositorio.
+2. Desde la raíz, ejecutar `python -m http.server 8000 --directory frontend`.
+3. Abrir `http://localhost:8000` en el navegador.
+
+La demostración permite consultar indicadores, navegar por módulos, buscar, filtrar, crear, editar y eliminar registros ficticios, y consultar actividades en el calendario. Los cambios permanecen solo en memoria hasta recargar la página. No requiere credenciales ni servicios externos.
+
+### Privacidad y alcance
+
+- No contiene datos del hotel, cuentas reales, conexiones a producción ni secretos.
+- La política CSP impide las conexiones de red iniciadas por la aplicación.
+- El backend, esquema de producción, documentación interna y funciones de administración reales se excluyen deliberadamente.
+- Las funciones de seguridad y arquitectura descritas anteriormente corresponden al sistema original, no a la demostración local.
+- Proyecto original desarrollado en equipo. La demostración reconstruida con asistencia de IA no sustituye la autoría ni el código original. Compartir el código del sistema original requiere autorización de sus titulares.
+

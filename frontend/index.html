@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'">
+<title>Gestión operativa | Demostración</title>
+<link rel="stylesheet" href="css/demo.css">
+<script defer src="js/components/calendarioMensual.js"></script>
+<script defer src="js/demo-data.js"></script>
+<script defer src="js/demo.js"></script>
+</head>
+<body>
+<aside><header><strong>El Almendro</strong><small>Portafolio | Gestión operativa</small></header><nav id="nav" aria-label="Módulos"></nav><p class="notice">Entorno de demostración<br>Datos completamente ficticios</p></aside>
+<main><header class="top"><div><small>Panel de gestión</small><h1 id="title">Inicio</h1></div><button id="reset" type="button">Restablecer demo</button></header>
+<section class="banner">Demostración local. No conecta con servicios del hotel ni representa su información real.</section>
+<section id="content" aria-live="polite"></section>
+<dialog id="editor"><form id="form"><h2 id="editor-title">Nuevo registro</h2><label>Descripción<input name="title" required maxlength="100"></label><label>Área<input name="area" required maxlength="60"></label><label>Fecha<input name="date" type="date" required></label><label>Estado<select name="status"><option>Pendiente</option><option>En curso</option><option>Completada</option></select></label><div class="actions"><button type="button" id="cancel">Cancelar</button><button class="primary" type="submit">Guardar</button></div></form></dialog>
+</main>
+</body>
+</html>
