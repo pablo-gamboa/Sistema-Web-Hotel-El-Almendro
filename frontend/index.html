@@ -55,7 +55,7 @@
               👤
             </div>
 <div class="truncate">
-<p class="text-xs font-semibold text-white truncate" id="sidebar-user-name">Usuario de muestra</p>
+<p class="text-xs font-semibold text-white truncate" id="sidebar-user-name">Administrador demo</p>
 <p class="text-[10px] text-blue-400 font-medium truncate uppercase" id="sidebar-user-role">Demostración</p>
 </div>
 </div>
@@ -81,15 +81,14 @@
 <div class="flex items-center space-x-2 sm:space-x-3 flex-shrink-0">
 <div class="flex items-center space-x-2 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-3 py-1.5 rounded-xl text-xs font-medium text-slate-700 dark:text-slate-200 shadow-sm">
 <span class="text-sm" id="topbar-user-avatar">👤</span>
-<span class="font-bold text-slate-800 dark:text-slate-200 hidden sm:inline" id="topbar-user-name">Usuario de muestra</span>
+<span class="font-bold text-slate-800 dark:text-slate-200 hidden sm:inline" id="topbar-user-name">Administrador demo</span>
 <span class="text-slate-400 dark:text-slate-500 hidden sm:inline">•</span>
-<span class="bg-blue-100 dark:bg-blue-950/80 text-blue-700 dark:text-blue-300 font-bold px-2 py-0.5 rounded-md text-xs border border-blue-200 dark:border-blue-800/60" id="topbar-role-badge">DEMO</span>
+<span class="bg-blue-100 dark:bg-blue-950/80 text-blue-700 dark:text-blue-300 font-bold px-2 py-0.5 rounded-md text-xs border border-blue-200 dark:border-blue-800/60" title="Datos ficticios, sin conexión a producción" id="topbar-role-badge">DEMO</span>
 </div>
-<div class="relative">
-</div>
+<button id="theme-toggle" type="button" class="alm-btn-secondary rounded-xl p-2" aria-label="Cambiar tema" title="Cambiar tema" onclick="cambiarTemaDemo()"><span id="theme-symbol" aria-hidden="true">☀</span></button>
 </div>
 </header>
 <main class="alm-workspace flex-1 overflow-y-auto custom-scrollbar" id="view-container">
-<div class="alm-panel p-3 mb-3" role="status">Demostración local · Datos ficticios · Sin acceso a producción <button class="alm-btn-secondary px-3 py-2" onclick="document.documentElement.classList.toggle('dark')" type="button">Cambiar tema</button></div><div id="vista-local-app"></div><div hidden="" id="vista-local-aviso"></div><div hidden="" id="vista-local-controles"><button id="vista-local-fallo"></button><button id="vista-local-incierta"></button></div></main>
+<div id="vista-local-app"></div><div hidden="" id="vista-local-aviso"></div><div hidden="" id="vista-local-controles"><button id="vista-local-fallo"></button><button id="vista-local-incierta"></button></div></main>
 </div>
 </div><script src="js/components/calendarioMensual.js"></script><script src="js/components/ganttCarta.js"></script><script src="js/views/tareasPendientes.js"></script><script src="js/views/gestionTareas.js"></script><script src="js/views/dashboard.js"></script><script src="js/views/proyectos-demo.js"></script><script src="js/views/inventario-demo.js"></script><script src="js/demo.js"></script><dialog class="alm-panel p-5 w-full max-w-4xl max-h-[90vh] overflow-y-auto dark:bg-slate-900 dark:text-white" id="modal-improvement-detail"><div id="demo-detalle"></div></dialog></body></html>

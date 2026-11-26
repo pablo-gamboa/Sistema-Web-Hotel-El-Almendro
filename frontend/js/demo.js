@@ -10,12 +10,12 @@
   const demoId = () => `demo-${String(++demoSequence).padStart(8, "0")}`;
   const actor = 'demo-admin';
   const trabajadores = [
-    { id: 'demo-1', nombre: 'Administradora de muestra', cargo: 'Administración', estado: 'Activo' },
-    { id: 'demo-2', nombre: 'Trabajador sin cuenta', cargo: 'Mantención', estado: 'Activo' },
-    { id: 'demo-3', nombre: 'Operaria de muestra', cargo: 'Servicios', estado: 'Activo' },
-    { id: 'demo-4', nombre: 'Trabajador inactivo', estado: 'Inactivo' }
+    { id: 'demo-1', nombre: 'Coordinación operativa', cargo: 'Administración', estado: 'Activo' },
+    { id: 'demo-2', nombre: 'Técnico de mantención', cargo: 'Mantención', estado: 'Activo' },
+    { id: 'demo-3', nombre: 'Asistente de servicios', cargo: 'Servicios', estado: 'Activo' },
+    { id: 'demo-4', nombre: 'Colaborador inactivo', estado: 'Inactivo' }
   ];
-  const maquinas = [{ id: 'demo-equipo', nombre_original: 'Caldera de muestra' }];
+  const maquinas = [{ id: 'demo-equipo', nombre_original: 'Equipo de climatización' }];
   const tareas = [];
   const asignaciones = [];
   const historial = [];
@@ -85,7 +85,7 @@
     }
     if (op === 'retirar') {
       t.retirada_en = fecha;
-      t.retirada_por_nombre_snapshot = 'Administradora de muestra';
+      t.retirada_por_nombre_snapshot = 'Coordinación operativa';
     } else {
       const vigentes = asignaciones.filter(x => x.tarea_id === t.id && !x.retirada_en);
       const completada = vigentes.length && vigentes.every(x => x.progreso === 100);
@@ -96,7 +96,7 @@
     historial.push({
       tarea_id: t.id, revision: t.revision,
       accion: args.p_accion || (op === 'retirar' ? 'RETIRAR' : op.toUpperCase()),
-      registrada_en: fecha, actor_nombre: 'Administradora de muestra', antes,
+      registrada_en: fecha, actor_nombre: 'Coordinación operativa', antes,
       despues: { tarea: copia(t), asignaciones: copia(asignaciones.filter(x => x.tarea_id === t.id)) }
     });
     return { tarea_id: t.id, revision: t.revision, solicitud_id: demoId(), reenvio: false };
@@ -153,8 +153,20 @@
     }
   };
 
-  guardar('crear', { p_titulo: 'Ordenar bodega de muestra', p_descripcion: 'Ordenar y revisar insumos del área de ejemplo.',
+  guardar('crear', { p_titulo: 'Ordenar bodega de insumos', p_descripcion: 'Clasificar materiales y comprobar existencias.',
     p_fecha_limite: hoy, p_equipo_id: null, p_trabajador_ids: ['demo-2'] });
+  const fechaDemo = n => {const d=new Date();d.setDate(d.getDate()+n);return calendarioFechaCivilLocal(d);};
+  for(const [titulo,descripcion,offset,ids,avance] of [
+    ['Revisar iluminación de pasillos','Comprobar luminarias y registrar observaciones.',-3,['demo-2'],0],
+    ['Actualizar inventario de insumos','Verificar existencias del catálogo.',-1,['demo-3'],100],
+    ['Inspeccionar equipos de climatización','Realizar revisión preventiva.',1,['demo-2'],40],
+    ['Preparar sala de reuniones','Revisar mobiliario y equipamiento.',3,['demo-3'],0],
+    ['Verificar herramientas de mantención','Organizar y comprobar herramientas.',5,['demo-2','demo-3'],0],
+    ['Revisar señalización interior','Comprobar señalética de espacios comunes.',-5,['demo-2'],100]
+  ]){
+    const r=guardar('crear',{p_titulo:titulo,p_descripcion:descripcion,p_fecha_limite:fechaDemo(offset),p_equipo_id:null,p_trabajador_ids:ids});
+    if(avance){for(const a of asignaciones.filter(x=>x.tarea_id===r.tarea_id)){const t=tareas.find(x=>x.id===r.tarea_id);guardar('responsables',{p_tarea_id:t.id,p_revision_esperada:t.revision,p_accion:'AVANCE',p_asignacion_id:a.id,p_progreso:avance});}}
+  }
   function montar() {
     app.innerHTML = renderGestionTareas();
     iniciarGestionTareas();
@@ -218,10 +230,11 @@ function formatearFechaCL(valor, { hora = false, civil = false, vacio = 'No defi
   return `${dato('day')}-${dato('month')}-${dato('year').padStart(4,'0')}`+(hora?` ${dato('hour')}:${dato('minute')}`:'');
 }
 
-let dashboardCargaAreas='listo', dashboardResumen={estado:'listo',proyectos:3,solicitudes:{pendiente:2,aprobada:4,rechazada:1},equipos:8,ubicacionesTotal:12};
+let dashboardCargaAreas='listo', dashboardResumen={estado:'listo',proyectos:6,solicitudes:{pendiente:2,aprobada:4,rechazada:1},equipos:8,ubicacionesTotal:12};
 function uiCargandoHTML(){return '<div class="alm-carga-inicial" role="status">Cargando...</div>';}
 let currentView='dashboard';function hasAccess(){return true;}function formatDate(v){return formatearFechaCL(v);}
-function areaTarjetasHTML(){return `<div class="alm-module-grid grid grid-cols-1 md:grid-cols-2 gap-4"><article class="alm-module-card"><h4>Gestión de tareas</h4><p>Registros ficticios y calendario.</p><footer><button onclick="navigateTo('tareas-pendientes')">Ir al módulo</button></footer></article><article class="alm-module-card"><h4>Proyectos de muestra</h4><p>Línea temporal ficticia.</p><footer><button onclick="navigateTo('gantt')">Ir al módulo</button></footer></article></div>`;}
+function areaTarjetasHTML(){return `<div class="alm-module-grid grid grid-cols-1 md:grid-cols-2 gap-4"><article class="alm-module-card"><h4>Gestión de tareas</h4><p>Seguimiento de actividades y calendario.</p><footer><button onclick="navigateTo('tareas-pendientes')">Ir al módulo</button></footer></article><article class="alm-module-card"><h4>Planificación de proyectos</h4><p>Cronograma de actividades.</p><footer><button onclick="navigateTo('gantt')">Ir al módulo</button></footer></article></div>`;}
 function toggleMobileSidebar(show){const s=document.getElementById('sidebar'),b=document.getElementById('sidebar-backdrop');const open=show??s.classList.contains('-translate-x-full');s.classList.toggle('-translate-x-full',!open);b.classList.toggle('hidden',!open);}
-function navigateTo(view){if(!['dashboard','tareas-pendientes','gantt','mejoras','remodelaciones','inventario'].includes(view))return;currentView=view;toggleMobileSidebar(false);document.querySelectorAll('.nav-item').forEach(b=>{const active=b.id==='nav-'+view;b.classList.toggle('bg-blue-600/20',active);b.classList.toggle('text-blue-400',active);b.classList.toggle('border',active);b.classList.toggle('border-blue-500/30',active);});const root=document.getElementById('vista-local-app');document.getElementById('page-title').textContent=({'dashboard':'Panel Principal - Hotel El Almendro','tareas-pendientes':'Gestión de Tareas','gantt':'Línea de Tiempo / Gantt','mejoras':'Mejoras / Obras','remodelaciones':'Remodelaciones','inventario':'Inventario'})[view];document.getElementById('page-subtitle').textContent='Vista de demostración con datos ficticios';if(view==='tareas-pendientes'){montarTareasDemo();return;}if(view==='mejoras'){root.innerHTML=renderMejorasDemo();return;}if(view==='remodelaciones'){root.innerHTML=renderRemodelacionesDemo();return;}if(view==='inventario'){root.innerHTML=renderInventarioView();return;}if(view==='dashboard'){root.innerHTML=getDashboardHTML();const panel=document.getElementById('dashboard-calendario');if(panel)gestionMontarCalendario(panel,'Calendario general de tareas',null,{abierto:true,enlaceGestion:true});return;}const dia=n=>{const d=new Date();d.setDate(d.getDate()+n);return calendarioFechaCivilLocal(d);};root.innerHTML=uiEncabezadoSeccion('Carta Gantt','Proyecto ficticio de muestra','calendar')+'<section class="alm-panel p-4 mt-4">'+GanttCarta.render({tareas:[{id:'demo-a',titulo:'Planificación',faseNombre:'Diseño',responsable:'Equipo ficticio',fechaInicio:dia(-4),fechaFin:dia(2),progreso:70},{id:'demo-b',titulo:'Ejecución',faseNombre:'Implementación',responsable:'Equipo ficticio',fechaInicio:dia(1),fechaFin:dia(12),progreso:20}]})+'</section>';}
+function navigateTo(view){if(!['dashboard','tareas-pendientes','gantt','mejoras','remodelaciones','inventario'].includes(view))return;currentView=view;toggleMobileSidebar(false);document.querySelectorAll('.nav-item').forEach(b=>{const active=b.id==='nav-'+view;b.classList.toggle('bg-blue-600/20',active);b.classList.toggle('text-blue-400',active);b.classList.toggle('border',active);b.classList.toggle('border-blue-500/30',active);});const root=document.getElementById('vista-local-app');document.getElementById('page-title').textContent=({'dashboard':'Panel Principal - Hotel El Almendro','tareas-pendientes':'Gestión de Tareas','gantt':'Línea de Tiempo / Gantt','mejoras':'Mejoras / Obras','remodelaciones':'Remodelaciones','inventario':'Inventario'})[view];document.getElementById('page-subtitle').textContent='Gestión y seguimiento operativo';if(view==='tareas-pendientes'){montarTareasDemo();return;}if(view==='mejoras'){root.innerHTML=renderMejorasDemo();return;}if(view==='remodelaciones'){root.innerHTML=renderRemodelacionesDemo();return;}if(view==='inventario'){root.innerHTML=renderInventarioView();return;}if(view==='dashboard'){root.innerHTML=getDashboardHTML();const panel=document.getElementById('dashboard-calendario');if(panel)gestionMontarCalendario(panel,'Calendario general de tareas',null,{abierto:true,enlaceGestion:true});return;}const dia=n=>{const d=new Date();d.setDate(d.getDate()+n);return calendarioFechaCivilLocal(d);};root.innerHTML=uiEncabezadoSeccion('Carta Gantt','Planificación de renovación interior','calendar')+'<section class="alm-panel p-4 mt-4">'+GanttCarta.render({tareas:[{id:'demo-a',titulo:'Levantamiento de requerimientos',faseNombre:'Diseño',responsable:'Coordinación',fechaInicio:dia(-8),fechaFin:dia(-4),progreso:100},{id:'demo-b',titulo:'Planificación de recursos',faseNombre:'Diseño',responsable:'Administración',fechaInicio:dia(-5),fechaFin:dia(1),progreso:80},{id:'demo-c',titulo:'Preparación del espacio',faseNombre:'Implementación',responsable:'Mantención',fechaInicio:dia(-2),fechaFin:dia(4),progreso:60},{id:'demo-d',titulo:'Instalación de luminarias',faseNombre:'Implementación',responsable:'Mantención',fechaInicio:dia(2),fechaFin:dia(9),progreso:20},{id:'demo-e',titulo:'Revisión de terminaciones',faseNombre:'Validación',responsable:'Coordinación',fechaInicio:dia(9),fechaFin:dia(13),progreso:0},{id:'demo-f',titulo:'Entrega y cierre',faseNombre:'Validación',responsable:'Administración',fechaInicio:dia(13),fechaFin:dia(16),progreso:0}]})+'</section>';}
 window.uiEncabezadoSeccion=uiEncabezadoOriginal;navigateTo('dashboard');
+function actualizarIconoTemaDemo(){const oscuro=document.documentElement.classList.contains('dark');const b=document.getElementById('theme-toggle');const label=oscuro?'Activar tema claro':'Activar tema oscuro';b.title=label;b.setAttribute('aria-label',label);document.getElementById('theme-symbol').innerHTML=oscuro?'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg>':'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M20.8 14.1A9 9 0 0 1 9.9 3.2 9 9 0 1 0 20.8 14.1Z"/></svg>';}function cambiarTemaDemo(){document.documentElement.classList.toggle('dark');actualizarIconoTemaDemo();}actualizarIconoTemaDemo();
