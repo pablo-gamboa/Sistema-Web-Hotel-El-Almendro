@@ -1,79 +1,99 @@
 # Sistema de Gestión Hotelera - Hotel & Centro de Eventos El Almendro
 
-Plataforma web full stack para centralizar y digitalizar los procesos operativos de un hotel y centro de eventos, reemplazando registros dispersos en planillas Excel. Desarrollada a partir de requerimientos reales del cliente.
+Plataforma web Full Stack desarrollada para centralizar y digitalizar los procesos operativos del Hotel & Centro de Eventos El Almendro, reemplazando registros dispersos en planillas Excel por un sistema integrado de gestión y seguimiento.
+
+El desarrollo responde a requerimientos reales del cliente, con un enfoque en la trazabilidad, la seguridad de la información y la organización de las actividades operativas.
 
 ## Mi participación
 
 **Pablo Gamboa - Desarrollador Full Stack y Scrum Master**
 
 - Diseño de interfaces, estructura de base de datos y lógica de negocio.
-- Implementación de módulos operativos y mecanismos de control de acceso.
-- Levantamiento de requerimientos con usuarios del hotel.
-- Coordinación del equipo mediante Scrum y Jira; despliegue en Vercel.
+- Desarrollo e integración de módulos operativos.
+- Implementación de mecanismos de autenticación, roles y permisos.
+- Levantamiento de requerimientos directamente con los usuarios del hotel.
+- Coordinación del equipo de desarrollo mediante Scrum y Jira.
+- Configuración y despliegue de la aplicación en Vercel.
 
-## Funcionalidades del sistema original
+## Funcionalidades del sistema
 
-- Dashboard e indicadores, mantenciones generales y reactivas.
-- Inventario, activos, proyectos, mejoras y remodelaciones.
-- Solicitudes, tareas, calendario y carta Gantt.
-- Gestión de trabajadores y documentación.
-- Autenticación, roles, permisos y trazabilidad de actividades.
+| Módulo | Descripción |
+| --- | --- |
+| Dashboard | Indicadores operativos y calendario general de actividades. |
+| Mantenciones | Gestión y seguimiento de mantenciones generales y reactivas. |
+| Inventario | Administración de productos, activos y bodegas. |
+| Mejoras y remodelaciones | Planificación y seguimiento de proyectos. |
+| Gestión de tareas | Asignación de responsables, estados, plazos y avances. |
+| Carta Gantt | Visualización de la planificación y el progreso de actividades. |
+| Solicitudes | Registro y seguimiento de requerimientos operativos. |
+| Trabajadores | Gestión de personal y documentación. |
+| Usuarios | Administración de cuentas, roles y permisos. |
 
-## Tecnologías del sistema original
+## Tecnologías
 
-HTML, CSS, JavaScript, Tailwind CSS, TypeScript, PostgreSQL, Supabase, Vercel, GitHub y Jira.
+| Área | Tecnologías |
+| --- | --- |
+| Frontend | HTML, CSS, JavaScript y Tailwind CSS |
+| Backend | Supabase, TypeScript y funciones RPC |
+| Base de datos | PostgreSQL |
+| Autenticación y seguridad | Supabase Auth y Row Level Security (RLS) |
+| Almacenamiento | Supabase Storage |
+| Correo electrónico | Mailjet SMTP |
+| Despliegue | Vercel |
+| Control de versiones | Git y GitHub |
+| Gestión de proyectos | Scrum y Jira |
 
 ## Arquitectura
 
-El sistema original utiliza una arquitectura de tres capas, separando presentación, negocio y persistencia de datos.
+El sistema utiliza una arquitectura de tres capas, separando la presentación, la lógica de negocio y la persistencia de datos.
 
 | Capa | Tecnologías | Responsabilidad |
 | --- | --- | --- |
 | Presentación | HTML, CSS, JavaScript y Vercel | Interfaz web para administradores, técnicos y recepción. |
 | Negocio | Supabase, funciones RPC, Auth, API y Mailjet SMTP | Lógica de negocio, autenticación y servicio de correo. |
-| Datos | PostgreSQL, Row Level Security (RLS) y Supabase Storage | Persistencia, almacenamiento de archivos y protección de datos. |
+| Datos | PostgreSQL, RLS y Supabase Storage | Persistencia, almacenamiento y protección de datos. |
 
-## Seguridad y calidad del sistema original
+## Seguridad y buenas prácticas
 
-- Autenticación mediante Supabase Auth y control de acceso por roles.
-- Políticas RLS para restringir acceso a registros en PostgreSQL.
-- Organización modular del código y seguimiento de estados e historial de actividades.
+- Autenticación y control de acceso basado en roles.
+- Políticas RLS para restringir el acceso a registros de la base de datos.
+- Separación de responsabilidades y organización modular del código.
+- Trazabilidad de actividades, responsables y estados.
+- Diseño responsive con temas claro y oscuro.
 
-## Demostración de portafolio
+## Estructura del repositorio
 
-Esta versión utiliza el HTML, los estilos CSS y Tailwind y componentes de presentación del frontend original, adaptados a un entorno independiente. Conserva el diseño original del menú, dashboard y gestión de tareas, con tema oscuro y claro. Los datos son ficticios y permanecen solo en memoria.
+```text
+frontend/
+├── css/
+├── js/
+│   ├── components/
+│   └── views/
+└── index.html
+.gitignore
+README.md
+```
 
-| Vista | Funcionalidades de demostración |
-| --- | --- |
-| Dashboard | Indicadores ficticios y calendario de actividades. |
-| Gestión de tareas | Calendario, filtros, creación de tareas, responsables ficticios y fichas de seguimiento. |
-| Carta Gantt | Visualización de fechas y avances simulados. |
-| Mejoras y obras | Listado, fichas de proyectos y Gantt. |
-| Remodelaciones | Tarjetas de proyectos y cambio de estado en memoria; ficha simplificada. |
-| Inventario | Catálogo, búsqueda y filtro por bodega; ficha simplificada de solo lectura. |
+## Ejecución local
 
-Las demás pantallas y operaciones del sistema original no están incluidas en esta demostración. No es una copia completa de producción.
+**Requisito:** Python 3.
 
-### Ejecutar localmente
+1. Clonar el repositorio o descargarlo desde Code > Download ZIP.
+2. Abrir una terminal en la carpeta del proyecto.
+3. Ejecutar:
 
-1. Descargar el repositorio desde **Code > Download ZIP** y descomprimirlo.
-2. Abrir la carpeta del proyecto y escribir `cmd` en la barra de direcciones del Explorador de Windows.
-3. Ejecutar `python -m http.server 8000 --bind 127.0.0.1 --directory frontend` (o `py -m http.server 8000 --bind 127.0.0.1 --directory frontend`).
-4. Abrir `http://localhost:8000` en el navegador.
-5. Navegar por las vistas, crear una tarea ficticia, consultar una ficha de proyecto y filtrar productos del inventario.
-6. Recargar la página para descartar cambios simulados. Detener el servidor con Ctrl+C.
+```bash
+python -m http.server 8000 --bind 127.0.0.1 --directory frontend
+```
 
-No requiere instalar paquetes ni configurar una cuenta de Supabase. No introducir datos personales o empresariales reales.
+4. Abrir [http://localhost:8000](http://localhost:8000) en el navegador.
 
-### Privacidad y alcance
+No requiere instalar dependencias ni configurar servicios externos.
 
-- La demo no carga el cliente de Supabase ni utiliza su backend, cuentas, registros o configuración de producción.
-- Los servicios de demostración son locales y trabajan con objetos ficticios en memoria.
-- Una política CSP bloquea las conexiones de red iniciadas por la aplicación y el envío de formularios externos. Los manejadores inline de la interfaz original se conservan para esta demo; no es una configuración recomendada para producción.
-- Se excluyen el backend, el esquema SQL, la documentación interna, el historial Git original y las funciones administrativas reales. Se desactiva la fuente tipográfica externa.
-- La arquitectura y la seguridad de la sección anterior describen el sistema original, no una autenticación o autorización activa en esta demo.
-- El proyecto original fue desarrollado en equipo. La adaptación de portafolio fue asistida por IA; su redistribución requiere la autorización correspondiente.
+## Versión de portafolio
 
-### Validación de la adaptación
+Esta versión conserva los estilos y componentes del frontend original y permite explorar el dashboard, la gestión de tareas, la carta Gantt, mejoras y obras, remodelaciones e inventario mediante datos ficticios. Los cambios de la sesión se descartan al recargar la página.
 
-Se verificó la sintaxis de los archivos JavaScript y se realizó una prueba de navegador en memoria con las seis vistas, apertura de fichas, creación de una tarea, Gantt, cambio de estado y filtro de inventario, sin errores JavaScript ni solicitudes externas observadas. La prueba utilizó recursos locales insertados en el navegador, no el despliegue real. La aplicación completa de producción no fue auditada.
+Por confidencialidad, no se incluyen registros reales, credenciales ni el backend de producción. La arquitectura y los mecanismos de seguridad descritos corresponden al sistema original.
+
+Proyecto desarrollado en equipo para el Hotel & Centro de Eventos El Almendro. La adaptación de demostración contó con asistencia de IA. La redistribución del código está sujeta a las autorizaciones correspondientes.
