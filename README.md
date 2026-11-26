@@ -1,6 +1,6 @@
 # Sistema de Gestión Hotelera - Hotel & Centro de Eventos El Almendro
 
-Plataforma web Full Stack desarrollada para centralizar y digitalizar los procesos operativos del Hotel & Centro de Eventos El Almendro, reemplazando registros dispersos en planillas Excel por un sistema integrado de gestión y seguimiento.
+Plataforma web Full Stack desarrollada para centralizar y digitalizar los procesos operativos de un hotel y centro de eventos, reemplazando registros dispersos en planillas Excel por un sistema integrado de gestión y seguimiento.
 
 El desarrollo responde a requerimientos reales del cliente, con un enfoque en la trazabilidad, la seguridad de la información y la organización de las actividades operativas.
 
@@ -96,4 +96,4 @@ Esta versión conserva los estilos y componentes del frontend original y permite
 
 Por confidencialidad, no se incluyen registros reales, credenciales ni el backend de producción. La arquitectura y los mecanismos de seguridad descritos corresponden al sistema original.
 
-Proyecto desarrollado en equipo para el Hotel & Centro de Eventos El Almendro. La adaptación de demostración contó con asistencia de IA. La redistribución del código está sujeta a las autorizaciones correspondientes.
+Proyecto desarrollado en equipo para un cliente del sector hotelero. La adaptación de demostración contó con asistencia de IA. La redistribución del código está sujeta a las autorizaciones correspondientes.

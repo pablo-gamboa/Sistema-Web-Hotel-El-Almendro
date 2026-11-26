@@ -20,7 +20,7 @@ function getImprovementsHTML(proyectos, planes, pendientesPlanAnual, metas, pend
   return `
     <div class="alm-ui alm-main-page alm-module-page alm-project-page space-y-6 max-w-7xl mx-auto pb-10">
       
-      ${uiEncabezadoSeccion('Mejoras y Obras','Proyectos de mejoras y obras de El Almendro registrados en el sistema.','folder',`<div class="alm-heading-count"><strong>${lista.length}</strong><span>${lista.length === 1 ? 'Proyecto registrado' : 'Proyectos registrados'}</span></div>`)}
+      ${uiEncabezadoSeccion('Mejoras y Obras','Proyectos de mejoras y obras registrados en el sistema.','folder',`<div class="alm-heading-count"><strong>${lista.length}</strong><span>${lista.length === 1 ? 'Proyecto registrado' : 'Proyectos registrados'}</span></div>`)}
 
       ${lista.length === 0 ? `
         <div class="bg-white dark:bg-slate-900 rounded-3xl p-12 text-center border border-slate-200 dark:border-slate-800">

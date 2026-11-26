@@ -1,4 +1,4 @@
-/* El Almendro — base visual reutilizable, activada únicamente con .alm-ui.
+/* Gestión Hotelera — base visual reutilizable, activada únicamente con .alm-ui.
    Esta primera tanda no redefine clases Tailwind ni estilos de otros módulos. */
 .alm-ui {
   --alm-bg: #f4f7fb;
