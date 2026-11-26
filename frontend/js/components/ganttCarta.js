@@ -10,7 +10,7 @@
 //
 // REGLAS DEL COMPONENTE (capa SOLO presentación):
 // - NO importa servicios (ni MejorasService ni MantencionesService).
-// - NO consulta Supabase.
+// - No realiza consultas a servicios de datos.
 // - NO conoce IDs concretos ni módulos concretos.
 // - NO ejecuta escrituras.
 // - Recibe un MODELO NORMALIZADO de tareas y devuelve HTML.

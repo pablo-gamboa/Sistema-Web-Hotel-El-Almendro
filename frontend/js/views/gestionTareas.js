@@ -278,9 +278,9 @@ function gestionError(error) {
   if (error?.code === '40001') return 'La tarea cambió. Vuelve a consultarla antes de guardar.';
   if (error?.code === '42501') return 'Tu sesión no tiene permiso para esta operación.';
   if (error?.code === '55P03') return 'La tarea está ocupada. Reintenta la misma operación.';
-  if (error?.code === 'PGRST202') return 'Gestión de tareas todavía no está habilitada en Supabase.';
+  if (error?.code === 'PGRST202') return 'Gestión de tareas no está disponible en este momento.';
   if (/TAREA|TRABAJADOR/i.test(error?.message || '') && error?.code) {
-    return 'Supabase rechazó la operación. Comprueba la revisión, la máquina o los responsables.';
+    return 'No se pudo completar la operación. Comprueba la revisión, la máquina o los responsables.';
   }
   return error?.code || error instanceof TypeError ? 'No se pudo confirmar la operación. Revisa la conexión.'
     : error?.message || 'No se pudo completar la operación.';
